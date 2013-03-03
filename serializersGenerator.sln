@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "serializersGenerator", "serializersGenerator\serializersGenerator.csproj", "{192F8E11-E2B9-4C26-B176-FA4FD14489AA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "testContractsAssembly", "testContractsAssembly\testContractsAssembly.csproj", "{9E71C074-45CA-4E46-B1BB-95EFACCF69CE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{192F8E11-E2B9-4C26-B176-FA4FD14489AA}.Debug|x86.ActiveCfg = Debug|x86
+		{192F8E11-E2B9-4C26-B176-FA4FD14489AA}.Debug|x86.Build.0 = Debug|x86
+		{192F8E11-E2B9-4C26-B176-FA4FD14489AA}.Release|x86.ActiveCfg = Release|x86
+		{192F8E11-E2B9-4C26-B176-FA4FD14489AA}.Release|x86.Build.0 = Release|x86
+		{9E71C074-45CA-4E46-B1BB-95EFACCF69CE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9E71C074-45CA-4E46-B1BB-95EFACCF69CE}.Debug|x86.Build.0 = Debug|Any CPU
+		{9E71C074-45CA-4E46-B1BB-95EFACCF69CE}.Release|x86.ActiveCfg = Release|Any CPU
+		{9E71C074-45CA-4E46-B1BB-95EFACCF69CE}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = serializersGenerator\serializersGenerator.csproj
+	EndGlobalSection
+EndGlobal
