@@ -4,8 +4,8 @@ test("Deserializing Simple", function() {
     deepEqual(result.Name, "Test");
 });
 test("Deserializing SampleIntDate", function() {
-    var xml = "<SampleIntDate xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><Id>42</Id><Date>2013-03-02T19:42:48.2261738+02:00</Date></SampleIntDate>"
+    var xml = "<SampleIntDate xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><Id>42</Id><Date>2013-03-10T18:48:35.6297874+02:00</Date></SampleIntDate>"
     var result = netXmlSerializer.deserializeSampleIntDate(xml)
     deepEqual(result.Id, 42);
-    deepEqual(result.Date, new Date(1362246168226));
+    deepEqual(result.Date, new Date(1362934115629));
 });

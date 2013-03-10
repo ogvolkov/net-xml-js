@@ -18,23 +18,20 @@ var netXmlSerializer = (function(){
         }
     }();
     return {
-      deserializeSimple: function deserialize(xml) {
-            var xmlDoc = parseXml(xml);
-            var result = {};
-
-            result.Name = xmlDoc.getElementsByTagName("Name")[0].textContent;
-
-            return result;         
-        },
-      deserializeSampleIntDate: function deserialize(xml) {
-            var xmlDoc = parseXml(xml);
-            var result = {};
-
-            result.Id = parseInt(xmlDoc.getElementsByTagName("Id")[0].textContent);
-
-            result.Date = new Date(Date.parse(xmlDoc.getElementsByTagName("Date")[0].textContent));
-
-            return result;         
-        },
-    }
+			deserializeSimple: function deserialize(xml) {
+				var xmlDoc = parseXml(xml);
+				var result = {};
+			        result.Name = xmlDoc.getElementsByTagName("Name")[0].textContent;
+                			return result;
+		},
+		deserializeSampleIntDate: function deserialize(xml) {
+				var xmlDoc = parseXml(xml);
+				var result = {};
+			                    
+        result.Id = parseInt(xmlDoc.getElementsByTagName("Id")[0].textContent);
+                		result.Date = new Date(Date.parse(xmlDoc.getElementsByTagName("Date")[0].textContent));
+                			return result;
+		},
+			
+	}
 })();

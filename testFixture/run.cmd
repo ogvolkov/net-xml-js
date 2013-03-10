@@ -1,1 +1,1 @@
-serializersGenerator.exe ..\..\..\testContractsAssembly\bin\Debug\testContractsAssembly.dll
+..\serializersGenerator\bin\Debug\serializersGenerator.exe ..\testContractsAssembly\bin\Debug\testContractsAssembly.dll

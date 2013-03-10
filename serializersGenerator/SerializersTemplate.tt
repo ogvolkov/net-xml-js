@@ -1,0 +1,49 @@
+﻿<#@ template language="C#" #>
+
+var netXmlSerializer = (function(){
+// initialize cross-browser xml parser
+    var parseXml = function() {
+        if (typeof window.DOMParser != "undefined") {
+            return function(xmlStr) {
+                return ( new window.DOMParser() ).parseFromString(xmlStr, "text/xml");
+            };
+        } else if (typeof window.ActiveXObject != "undefined" &&  new window.ActiveXObject("Microsoft.XMLDOM")) {
+            return function(xmlStr) {
+                var xmlDoc = new window.ActiveXObject("Microsoft.XMLDOM");
+                xmlDoc.async = "false";
+                xmlDoc.loadXML(xmlStr);
+                return xmlDoc;
+            };
+        } else {
+            throw new Error("No XML parser found");
+        }
+    }();
+    return {
+		<# foreach (var type in _typesInfo.Types)
+		{#>
+	deserialize<#=type.Name#>: function deserialize(xml) {
+				var xmlDoc = parseXml(xml);
+				var result = {};
+			<# foreach (var property in type.GetProperties())
+			{
+				var propertyType = property.PropertyType;
+				if (propertyType == typeof(DateTime))
+				{#>
+		result.<#=property.Name#> = new Date(Date.parse(xmlDoc.getElementsByTagName("<#=property.Name#>")[0].textContent));
+                <#}
+                else if (propertyType == typeof(int))
+                {#>                    
+        result.<#=property.Name#> = parseInt(xmlDoc.getElementsByTagName("<#=property.Name#>")[0].textContent);
+                <#}
+                else
+                {#>
+        result.<#=property.Name#> = xmlDoc.getElementsByTagName("<#=property.Name#>")[0].textContent;
+                <#}
+			}#>
+			return result;
+		},
+	<#
+	}
+	#>		
+	}
+})();
