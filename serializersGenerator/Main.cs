@@ -15,20 +15,22 @@ namespace serializersGenerator
 
 				using (var unitTestsWriter = new StreamWriter("tests.js"))
 				using (var codeWriter = new StreamWriter("serializers.js"))
-				{					
-					var unitTestsGenerator = new UnitTestsGenerator(unitTestsWriter);
+				{										
 				    var typesInfo = new TypesInfo();
 				
 					foreach (var type in assembly.GetTypes())
 					{
-						Console.WriteLine("Processing type {0}", type.Name);
-						unitTestsGenerator.AddType(type);
+						Console.WriteLine("Processing type {0}", type.Name);						
 					    typesInfo.AddType(type);
 					}
 
                     var serializersTemplate = new SerializersTemplate(typesInfo);
 				    var text = serializersTemplate.TransformText();
                     codeWriter.Write(text);
+
+				    var unitTestsTemplate = new UnitTestsTemplate(typesInfo, new SampleDataBuilder());
+				    text = unitTestsTemplate.TransformText();
+                    unitTestsWriter.Write(text);
 				}
 			}
 			else

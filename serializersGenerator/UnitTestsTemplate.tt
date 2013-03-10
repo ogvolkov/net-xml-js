@@ -1,0 +1,48 @@
+﻿<#@ template language="C#" #>
+<#@ import namespace="System.Xml" #>
+<#@ import namespace="System.Xml.Serialization" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Web" #>
+
+<# foreach (var type in _typesInfo.Types)
+	{#>
+	test("Deserializing <#=type.Name#>", function() {
+		var xml = "<#
+			var instance = _sampleDataBuilder.CreateSampleInstance(type);  
+
+			var serializer = new XmlSerializer(type);
+			var stringWriter = new StringWriter();
+            var escapingWriter = new EscapingTextWriter(stringWriter);
+            XmlWriter xmlWriter = XmlWriter.Create(escapingWriter, new XmlWriterSettings { OmitXmlDeclaration = true });			
+            serializer.Serialize(xmlWriter, instance);
+			
+			Write(stringWriter.ToString());
+		#>";
+
+		var result = netXmlSerializer.deserialize<#=type.Name#>(xml);
+
+		<# foreach (var property in type.GetProperties())
+            {
+                object value = property.GetValue(instance, null);
+                object encodedValue = value;
+                
+                var propertyType = property.PropertyType;
+                if (propertyType == typeof(string))
+                {
+                    var jsEncodedString = HttpUtility.JavaScriptStringEncode((string)value);
+                    encodedValue = string.Format("\"{0}\"", jsEncodedString);
+                }
+                else if (propertyType == typeof(DateTime))
+                {
+                    var unixTime = (((DateTime)value).ToUniversalTime() - new DateTime(1970, 1, 1)).TotalMilliseconds;
+                    encodedValue = string.Format("new Date({0})", Math.Truncate(unixTime));
+                }
+                
+                #>
+				deepEqual(result.<#=property.Name#>, <#=encodedValue#>);
+				<#
+            }
+		#>	
+	});
+<#
+	}#>

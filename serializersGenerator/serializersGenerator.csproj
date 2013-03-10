@@ -36,6 +36,7 @@
     <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UnitTestsTemplatePartial.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="EscapingTextWriter.cs" />
@@ -47,12 +48,20 @@
     <Compile Include="SampleDataBuilder.cs" />
     <Compile Include="SerializersTemplatePartial.cs" />
     <Compile Include="TypesInfo.cs" />
-    <Compile Include="UnitTestsGenerator.cs" />
+    <Compile Include="UnitTestsTemplate.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UnitTestsTemplate.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="SerializersTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>SerializersTemplate.cs</LastGenOutput>
+    </None>
+    <None Include="UnitTestsTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>UnitTestsTemplate.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
