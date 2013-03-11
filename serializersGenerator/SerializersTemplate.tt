@@ -1,4 +1,5 @@
 ﻿<#@ template language="C#" #>
+<#@ import namespace="System.Linq" #>
 
 var netXmlSerializer = (function(){
 // initialize cross-browser xml parser
@@ -18,32 +19,49 @@ var netXmlSerializer = (function(){
             throw new Error("No XML parser found");
         }
     }();
-    return {
-		<# foreach (var type in _typesInfo.Types)
+	<# 
+		var types = _typesInfo.Types;
+			
+		foreach (var type in types)
 		{#>
-	deserialize<#=type.Name#>: function deserialize(xml) {
-				var xmlDoc = parseXml(xml);
+	function deserializeNode<#=type.Name#>(node) {				
 				var result = {};
 			<# foreach (var property in type.GetProperties())
 			{
 				var propertyType = property.PropertyType;
 				if (propertyType == typeof(DateTime))
 				{#>
-		result.<#=property.Name#> = new Date(Date.parse(xmlDoc.getElementsByTagName("<#=property.Name#>")[0].textContent));
+		result.<#=property.Name#> = new Date(Date.parse(node.getElementsByTagName("<#=property.Name#>")[0].textContent));
                 <#}
                 else if (propertyType == typeof(int))
                 {#>                    
-        result.<#=property.Name#> = parseInt(xmlDoc.getElementsByTagName("<#=property.Name#>")[0].textContent);
+        result.<#=property.Name#> = parseInt(node.getElementsByTagName("<#=property.Name#>")[0].textContent);
                 <#}
+				else if (types.Contains(propertyType))
+                {#>
+		result.<#=property.Name#> = deserializeNode<#=propertyType.Name#>(node.getElementsByTagName("<#=property.Name#>")[0]);
+				<#}
                 else
                 {#>
-        result.<#=property.Name#> = xmlDoc.getElementsByTagName("<#=property.Name#>")[0].textContent;
+        result.<#=property.Name#> = node.getElementsByTagName("<#=property.Name#>")[0].textContent;
                 <#}
 			}#>
 			return result;
-		},
+		}
+
 	<#
-	}
-	#>		
+	}			
+	#>
+    return {
+		<#
+			foreach (var type in types)
+		{#>
+			deserialize<#=type.Name#>: function(xml) {
+						var xmlDoc = parseXml(xml);					
+						return deserializeNode<#=type.Name#>(xmlDoc);
+					},
+		<#
+		}			
+		#>
 	}
 })();

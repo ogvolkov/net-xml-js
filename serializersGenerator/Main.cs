@@ -17,8 +17,9 @@ namespace serializersGenerator
 				using (var codeWriter = new StreamWriter("serializers.js"))
 				{										
 				    var typesInfo = new TypesInfo();
+				    var types = assembly.GetTypes();
 				
-					foreach (var type in assembly.GetTypes())
+					foreach (var type in types)
 					{
 						Console.WriteLine("Processing type {0}", type.Name);						
 					    typesInfo.AddType(type);
@@ -28,7 +29,7 @@ namespace serializersGenerator
 				    var text = serializersTemplate.TransformText();
                     codeWriter.Write(text);
 
-				    var unitTestsTemplate = new UnitTestsTemplate(typesInfo, new SampleDataBuilder());
+				    var unitTestsTemplate = new UnitTestsTemplate(typesInfo, new SampleDataBuilder(types));
 				    text = unitTestsTemplate.TransformText();
                     unitTestsWriter.Write(text);
 				}

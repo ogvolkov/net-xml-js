@@ -1,9 +1,17 @@
 using System;
+using System.Collections.Generic;
 
 namespace serializersGenerator
 {
     public class SampleDataBuilder
     {
+        private readonly ICollection<Type> _customTypes; 
+
+        public SampleDataBuilder(ICollection<Type> customTypes)
+        {
+            _customTypes = customTypes;
+        }
+
         public object CreateSampleInstance(Type type)
         {
             var instance = Activator.CreateInstance(type);
@@ -23,6 +31,10 @@ namespace serializersGenerator
                 else if (propertyType == typeof(DateTime))
                 {
                     propertyValue = DateTime.Now;
+                }   
+                else if (_customTypes.Contains(propertyType))
+                {
+                    propertyValue = CreateSampleInstance(propertyType);
                 }
                 
                 property.SetValue(instance, propertyValue, null);
