@@ -38,6 +38,11 @@
                     encodedValue = string.Format("new Date({0})", Math.Truncate(unixTime));
                 }
                 
+				if (encodedValue == null)
+				{
+					encodedValue = "null";
+                }
+
                 #>
 				deepEqual(result.<#=property.Name#>, <#=encodedValue#>);
 				<#
