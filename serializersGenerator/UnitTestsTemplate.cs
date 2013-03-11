@@ -14,6 +14,7 @@ namespace serializersGenerator
     using System.IO;
     using System.Web;
     using System.Linq;
+    using System.Collections.Generic;
     using System;
     
     
@@ -82,7 +83,7 @@ namespace serializersGenerator
             this.GenerationEnvironment = null;
             this.Write("\r\n");
             
-            #line 8 "D:\development\net-xml-js\serializersGenerator\UnitTestsTemplate.tt"
+            #line 9 "D:\development\net-xml-js\serializersGenerator\UnitTestsTemplate.tt"
  
 	var types = _typesInfo.Types;
 
@@ -93,14 +94,14 @@ namespace serializersGenerator
             #line hidden
             this.Write("\ttest(\"Deserializing ");
             
-            #line 13 "D:\development\net-xml-js\serializersGenerator\UnitTestsTemplate.tt"
+            #line 14 "D:\development\net-xml-js\serializersGenerator\UnitTestsTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(type.Name));
             
             #line default
             #line hidden
             this.Write("\", function() {\r\n\t\tvar xml = \"");
             
-            #line 14 "D:\development\net-xml-js\serializersGenerator\UnitTestsTemplate.tt"
+            #line 15 "D:\development\net-xml-js\serializersGenerator\UnitTestsTemplate.tt"
 
 			var instance = _sampleDataBuilder.CreateSampleInstance(type);  
 
@@ -117,15 +118,35 @@ namespace serializersGenerator
             #line hidden
             this.Write("\";\r\n\r\n\t\tvar result = netXmlSerializer.deserialize");
             
-            #line 26 "D:\development\net-xml-js\serializersGenerator\UnitTestsTemplate.tt"
+            #line 27 "D:\development\net-xml-js\serializersGenerator\UnitTestsTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(type.Name));
             
             #line default
             #line hidden
-            this.Write("(xml);\r\n\r\n\t\t");
+            this.Write("(xml);\r\n\t\t");
             
             #line 28 "D:\development\net-xml-js\serializersGenerator\UnitTestsTemplate.tt"
- foreach (var property in type.GetProperties())
+CompareObjectProperties("result", instance, type, types);
+            
+            #line default
+            #line hidden
+            this.Write("\t\r\n\t});\r\n");
+            
+            #line 30 "D:\development\net-xml-js\serializersGenerator\UnitTestsTemplate.tt"
+
+	}
+            
+            #line default
+            #line hidden
+            this.Write("\r\n");
+            return this.GenerationEnvironment.ToString();
+        }
+        
+        #line 33 "D:\development\net-xml-js\serializersGenerator\UnitTestsTemplate.tt"
+
+	public void CompareObjectProperties(string objectName, object instance, Type type, IEnumerable<Type> allTypes)
+	{
+		foreach (var property in type.GetProperties())
             {
                 object value = property.GetValue(instance, null);                
                 
@@ -133,121 +154,28 @@ namespace serializersGenerator
                 if (propertyType == typeof(string))
                 {
                     var jsEncodedString = HttpUtility.JavaScriptStringEncode((string)value);                    
-					
-            
-            #line default
-            #line hidden
-            this.Write("\t\t\t\t\tequal(result.");
-            
-            #line 37 "D:\development\net-xml-js\serializersGenerator\UnitTestsTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(property.Name));
-            
-            #line default
-            #line hidden
-            this.Write(", ");
-            
-            #line 37 "D:\development\net-xml-js\serializersGenerator\UnitTestsTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(string.Format("\"{0}\"", jsEncodedString)));
-            
-            #line default
-            #line hidden
-            this.Write(");\r\n\t\t\t\t\t");
-            
-            #line 38 "D:\development\net-xml-js\serializersGenerator\UnitTestsTemplate.tt"
-
+					WriteLine("equal({0}.{1}, {2});", objectName, property.Name, string.Format("\"{0}\"", jsEncodedString));				
                 }
                 else if (propertyType == typeof(DateTime))
                 {
                     var unixTime = (((DateTime)value).ToUniversalTime() - new DateTime(1970, 1, 1)).TotalMilliseconds;
                     var date = string.Format("new Date({0})", Math.Truncate(unixTime));
-					
-            
-            #line default
-            #line hidden
-            this.Write("\t\t\t\t\tdeepEqual(result.");
-            
-            #line 45 "D:\development\net-xml-js\serializersGenerator\UnitTestsTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(property.Name));
-            
-            #line default
-            #line hidden
-            this.Write(", ");
-            
-            #line 45 "D:\development\net-xml-js\serializersGenerator\UnitTestsTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(date));
-            
-            #line default
-            #line hidden
-            this.Write(");\r\n\t\t\t\t\t");
-            
-            #line 46 "D:\development\net-xml-js\serializersGenerator\UnitTestsTemplate.tt"
-
+					WriteLine("deepEqual({0}.{1}, {2});", objectName, property.Name, date);					
                 }
-				else if (types.Contains(propertyType))
-				{					
-					
-            
-            #line default
-            #line hidden
-            this.Write("\t\t\t\t\tdeepEqual(result.");
-            
-            #line 51 "D:\development\net-xml-js\serializersGenerator\UnitTestsTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(property.Name));
-            
-            #line default
-            #line hidden
-            this.Write(", netXmlSerializer.deserialize");
-            
-            #line 51 "D:\development\net-xml-js\serializersGenerator\UnitTestsTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(propertyType.Name));
-            
-            #line default
-            #line hidden
-            this.Write("());\r\n\t\t\t\t\t");
-            
-            #line 52 "D:\development\net-xml-js\serializersGenerator\UnitTestsTemplate.tt"
-
+				else if (allTypes.Contains(propertyType))
+				{
+					CompareObjectProperties(string.Format("result.{0}", property.Name), value, propertyType, allTypes);				
                 }
 				else
                 {
-					
-            
-            #line default
-            #line hidden
-            this.Write("\t\t\t\t\tequal(result.");
-            
-            #line 57 "D:\development\net-xml-js\serializersGenerator\UnitTestsTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(property.Name));
-            
-            #line default
-            #line hidden
-            this.Write(", ");
-            
-            #line 57 "D:\development\net-xml-js\serializersGenerator\UnitTestsTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(value));
-            
-            #line default
-            #line hidden
-            this.Write(");\r\n\t\t\t\t\t");
-            
-            #line 58 "D:\development\net-xml-js\serializersGenerator\UnitTestsTemplate.tt"
-
+					WriteLine("equal({0}.{1}, {2});", objectName, property.Name, value);					
                 }
             }
-		
-            
-            #line default
-            #line hidden
-            this.Write("\t\r\n\t});\r\n");
-            
-            #line 63 "D:\development\net-xml-js\serializersGenerator\UnitTestsTemplate.tt"
-
 	}
-            
-            #line default
-            #line hidden
-            return this.GenerationEnvironment.ToString();
-        }
+
+        
+        #line default
+        #line hidden
     }
     
     #line default

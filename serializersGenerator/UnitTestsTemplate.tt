@@ -4,6 +4,7 @@
 <#@ import namespace="System.IO" #>
 <#@ import namespace="System.Web" #>
 <#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Collections.Generic" #>
 
 <# 
 	var types = _typesInfo.Types;
@@ -24,8 +25,15 @@
 		#>";
 
 		var result = netXmlSerializer.deserialize<#=type.Name#>(xml);
+		<#CompareObjectProperties("result", instance, type, types);#>	
+	});
+<#
+	}#>
 
-		<# foreach (var property in type.GetProperties())
+<#+
+	public void CompareObjectProperties(string objectName, object instance, Type type, IEnumerable<Type> allTypes)
+	{
+		foreach (var property in type.GetProperties())
             {
                 object value = property.GetValue(instance, null);                
                 
@@ -33,32 +41,22 @@
                 if (propertyType == typeof(string))
                 {
                     var jsEncodedString = HttpUtility.JavaScriptStringEncode((string)value);                    
-					#>
-					equal(result.<#=property.Name#>, <#=string.Format("\"{0}\"", jsEncodedString)#>);
-					<#
+					WriteLine("equal({0}.{1}, {2});", objectName, property.Name, string.Format("\"{0}\"", jsEncodedString));				
                 }
                 else if (propertyType == typeof(DateTime))
                 {
                     var unixTime = (((DateTime)value).ToUniversalTime() - new DateTime(1970, 1, 1)).TotalMilliseconds;
                     var date = string.Format("new Date({0})", Math.Truncate(unixTime));
-					#>
-					deepEqual(result.<#=property.Name#>, <#=date#>);
-					<#
+					WriteLine("deepEqual({0}.{1}, {2});", objectName, property.Name, date);					
                 }
-				else if (types.Contains(propertyType))
-				{					
-					#>
-					deepEqual(result.<#=property.Name#>, netXmlSerializer.deserialize<#=propertyType.Name#>());
-					<#
+				else if (allTypes.Contains(propertyType))
+				{
+					CompareObjectProperties(string.Format("result.{0}", property.Name), value, propertyType, allTypes);				
                 }
 				else
                 {
-					#>
-					equal(result.<#=property.Name#>, <#=value#>);
-					<#
+					WriteLine("equal({0}.{1}, {2});", objectName, property.Name, value);					
                 }
             }
-		#>	
-	});
-<#
-	}#>
+	}
+#>
