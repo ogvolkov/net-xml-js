@@ -7,11 +7,11 @@
 	
 	});
 	test("Deserializing SampleIntDate", function() {
-		var xml = "<SampleIntDate xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><Id>42</Id><Date>2013-03-15T10:06:54.0748867+02:00</Date></SampleIntDate>";
+		var xml = "<SampleIntDate xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><Id>42</Id><Date>2013-03-15T10:32:45.5396254+02:00</Date></SampleIntDate>";
 
 		var result = netXmlSerializer.deserializeSampleIntDate(xml);
 		equal(result.Id, 42);
-deepEqual(result.Date, new Date(1363334814074));
+deepEqual(result.Date, new Date(1363336365539));
 	
 	});
 	test("Deserializing ReferenceSubordinate", function() {
@@ -44,7 +44,12 @@ equal(result.Quantity, 42);
 
 		var result = netXmlSerializer.deserializeOrder(xml);
 		equal(result.Id, 42);
-equal(result.Lines, System.Collections.Generic.List`1[testContractsAssembly.OrderLine]);
+equal(result.Lines[0].Id, 42);
+equal(result.Lines[0].Price, 42);
+equal(result.Lines[0].Quantity, 42);
+equal(result.Lines[1].Id, 42);
+equal(result.Lines[1].Price, 42);
+equal(result.Lines[1].Quantity, 42);
 	
 	});
 

@@ -14,6 +14,7 @@ namespace serializersGenerator
     using System.IO;
     using System.Web;
     using System.Linq;
+    using System.Collections;
     using System.Collections.Generic;
     using System;
     
@@ -83,7 +84,7 @@ namespace serializersGenerator
             this.GenerationEnvironment = null;
             this.Write("\r\n");
             
-            #line 9 "D:\development\net-xml-js\serializersGenerator\UnitTestsTemplate.tt"
+            #line 10 "D:\development\net-xml-js\serializersGenerator\UnitTestsTemplate.tt"
  
 	var types = _typesInfo.Types;
 
@@ -94,14 +95,14 @@ namespace serializersGenerator
             #line hidden
             this.Write("\ttest(\"Deserializing ");
             
-            #line 14 "D:\development\net-xml-js\serializersGenerator\UnitTestsTemplate.tt"
+            #line 15 "D:\development\net-xml-js\serializersGenerator\UnitTestsTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(type.Name));
             
             #line default
             #line hidden
             this.Write("\", function() {\r\n\t\tvar xml = \"");
             
-            #line 15 "D:\development\net-xml-js\serializersGenerator\UnitTestsTemplate.tt"
+            #line 16 "D:\development\net-xml-js\serializersGenerator\UnitTestsTemplate.tt"
 
 			var instance = _sampleDataBuilder.CreateSampleInstance(type);  
 
@@ -118,21 +119,21 @@ namespace serializersGenerator
             #line hidden
             this.Write("\";\r\n\r\n\t\tvar result = netXmlSerializer.deserialize");
             
-            #line 27 "D:\development\net-xml-js\serializersGenerator\UnitTestsTemplate.tt"
+            #line 28 "D:\development\net-xml-js\serializersGenerator\UnitTestsTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(type.Name));
             
             #line default
             #line hidden
             this.Write("(xml);\r\n\t\t");
             
-            #line 28 "D:\development\net-xml-js\serializersGenerator\UnitTestsTemplate.tt"
+            #line 29 "D:\development\net-xml-js\serializersGenerator\UnitTestsTemplate.tt"
 CompareObjectProperties("result", instance, type, types);
             
             #line default
             #line hidden
             this.Write("\t\r\n\t});\r\n");
             
-            #line 30 "D:\development\net-xml-js\serializersGenerator\UnitTestsTemplate.tt"
+            #line 31 "D:\development\net-xml-js\serializersGenerator\UnitTestsTemplate.tt"
 
 	}
             
@@ -142,7 +143,7 @@ CompareObjectProperties("result", instance, type, types);
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 33 "D:\development\net-xml-js\serializersGenerator\UnitTestsTemplate.tt"
+        #line 34 "D:\development\net-xml-js\serializersGenerator\UnitTestsTemplate.tt"
 
 	public void CompareObjectProperties(string objectName, object instance, Type type, IEnumerable<Type> allTypes)
 	{
@@ -168,7 +169,25 @@ CompareObjectProperties("result", instance, type, types);
                 }
 				else
                 {
-					WriteLine("equal({0}.{1}, {2});", objectName, property.Name, value);					
+					var collectionType = TypesInfo.TryGetCollectionType(propertyType);					
+
+					if (collectionType != null)
+                    {
+						var itemType = collectionType.GetGenericArguments().First();
+						var items = value as IEnumerable;
+
+						int index = 0;
+						foreach(var item in items)						
+                        {
+							var itemJsAccessor = string.Format("{0}.{1}[{2}]", objectName, property.Name, index);
+							CompareObjectProperties(itemJsAccessor, item, itemType, allTypes);
+							++index;
+						}
+					}
+					else
+                    {
+						WriteLine("equal({0}.{1}, {2});", objectName, property.Name, value);					
+                    }
                 }
             }
 	}

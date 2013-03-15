@@ -40,8 +40,7 @@ namespace serializersGenerator
                 }
                 else
                 {
-                    var collectionType = propertyType.GetInterfaces().FirstOrDefault(
-                        t => t.IsGenericType && t.GetGenericTypeDefinition() == typeof(ICollection<>));
+                    var collectionType = TypesInfo.TryGetCollectionType(propertyType);
 
                     if (collectionType != null)
                     {
