@@ -42,9 +42,29 @@ var netXmlSerializer = (function(){
 		result.<#=property.Name#> = deserializeNode<#=propertyType.Name#>(node.getElementsByTagName("<#=property.Name#>")[0]);
 				<#}
                 else
-                {#>
+                {
+					var collectionType = TypesInfo.TryGetCollectionType(propertyType);					
+
+					if (collectionType != null)
+                    {
+						var itemType = collectionType.GetGenericArguments().First();
+				#>
+					result.<#=property.Name#> = [];
+					var _<#=property.Name#>Nodes = node.getElementsByTagName("<#=property.Name#>")[0].getElementsByTagName("<#=itemType.Name#>");
+					var _<#=property.Name#>Item;
+					for (i = 0; i < _<#=property.Name#>Nodes.length; i++)
+					{
+						_<#=property.Name#>Item = deserializeNode<#=itemType.Name#>(_<#=property.Name#>Nodes[i]);
+						 result.<#=property.Name#>.push(_<#=property.Name#>Item);
+					}					
+				<#
+                    }
+					else
+					{
+				#>
         result.<#=property.Name#> = node.getElementsByTagName("<#=property.Name#>")[0].textContent;
                 <#}
+				}
 			}#>
 			return result;
 		}

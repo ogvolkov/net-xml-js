@@ -60,8 +60,15 @@ var netXmlSerializer = (function(){
 				var result = {};
 			                    
         result.Id = parseInt(node.getElementsByTagName("Id")[0].textContent);
-                        result.Lines = node.getElementsByTagName("Lines")[0].textContent;
-                			return result;
+                					result.Lines = [];
+					var _LinesNodes = node.getElementsByTagName("Lines")[0].getElementsByTagName("OrderLine");
+					var _LinesItem;
+					for (i = 0; i < _LinesNodes.length; i++)
+					{
+						_LinesItem = deserializeNodeOrderLine(_LinesNodes[i]);
+						 result.Lines.push(_LinesItem);
+					}					
+							return result;
 		}
 
 	    return {
