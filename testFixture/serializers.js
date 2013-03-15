@@ -17,21 +17,77 @@ var netXmlSerializer = (function(){
             throw new Error("No XML parser found");
         }
     }();
-    return {
-			deserializeSimple: function deserialize(xml) {
-				var xmlDoc = parseXml(xml);
+		function deserializeNodeSimple(node) {				
 				var result = {};
-			        result.Name = xmlDoc.getElementsByTagName("Name")[0].textContent;
+			        result.Name = node.getElementsByTagName("Name")[0].textContent;
                 			return result;
-		},
-		deserializeSampleIntDate: function deserialize(xml) {
-				var xmlDoc = parseXml(xml);
+		}
+
+		function deserializeNodeSampleIntDate(node) {				
 				var result = {};
 			                    
-        result.Id = parseInt(xmlDoc.getElementsByTagName("Id")[0].textContent);
-                		result.Date = new Date(Date.parse(xmlDoc.getElementsByTagName("Date")[0].textContent));
+        result.Id = parseInt(node.getElementsByTagName("Id")[0].textContent);
+                		result.Date = new Date(Date.parse(node.getElementsByTagName("Date")[0].textContent));
                 			return result;
-		},
-			
-	}
+		}
+
+		function deserializeNodeReferenceSubordinate(node) {				
+				var result = {};
+			                    
+        result.Id = parseInt(node.getElementsByTagName("Id")[0].textContent);
+                        result.Name = node.getElementsByTagName("Name")[0].textContent;
+                			return result;
+		}
+
+		function deserializeNodeReferenceMain(node) {				
+				var result = {};
+					result.Reference = deserializeNodeReferenceSubordinate(node.getElementsByTagName("Reference")[0]);
+							return result;
+		}
+
+		function deserializeNodeOrderLine(node) {				
+				var result = {};
+			                    
+        result.Id = parseInt(node.getElementsByTagName("Id")[0].textContent);
+                                    
+        result.Price = parseInt(node.getElementsByTagName("Price")[0].textContent);
+                                    
+        result.Quantity = parseInt(node.getElementsByTagName("Quantity")[0].textContent);
+                			return result;
+		}
+
+		function deserializeNodeOrder(node) {				
+				var result = {};
+			                    
+        result.Id = parseInt(node.getElementsByTagName("Id")[0].textContent);
+                        result.Lines = node.getElementsByTagName("Lines")[0].textContent;
+                			return result;
+		}
+
+	    return {
+					deserializeSimple: function(xml) {
+						var xmlDoc = parseXml(xml);					
+						return deserializeNodeSimple(xmlDoc);
+					},
+					deserializeSampleIntDate: function(xml) {
+						var xmlDoc = parseXml(xml);					
+						return deserializeNodeSampleIntDate(xmlDoc);
+					},
+					deserializeReferenceSubordinate: function(xml) {
+						var xmlDoc = parseXml(xml);					
+						return deserializeNodeReferenceSubordinate(xmlDoc);
+					},
+					deserializeReferenceMain: function(xml) {
+						var xmlDoc = parseXml(xml);					
+						return deserializeNodeReferenceMain(xmlDoc);
+					},
+					deserializeOrderLine: function(xml) {
+						var xmlDoc = parseXml(xml);					
+						return deserializeNodeOrderLine(xmlDoc);
+					},
+					deserializeOrder: function(xml) {
+						var xmlDoc = parseXml(xml);					
+						return deserializeNodeOrder(xmlDoc);
+					},
+			}
 })();
