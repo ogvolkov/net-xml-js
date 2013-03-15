@@ -39,7 +39,13 @@ var netXmlSerializer = (function(){
                 <#}
 				else if (types.Contains(propertyType))
                 {#>
-		result.<#=property.Name#> = deserializeNode<#=propertyType.Name#>(node.getElementsByTagName("<#=property.Name#>")[0]);
+					var _<#=property.Name#>Nodes = node.getElementsByTagName("<#=property.Name#>");
+					if (_<#=property.Name#>Nodes && _<#=property.Name#>Nodes.length > 0) {
+		result.<#=property.Name#> = deserializeNode<#=propertyType.Name#>(_<#=property.Name#>Nodes[0]);
+					}
+					else{
+						result.<#=property.Name#> = null;
+					}
 				<#}
                 else
                 {

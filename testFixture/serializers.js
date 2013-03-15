@@ -41,7 +41,13 @@ var netXmlSerializer = (function(){
 
 		function deserializeNodeReferenceMain(node) {				
 				var result = {};
-					result.Reference = deserializeNodeReferenceSubordinate(node.getElementsByTagName("Reference")[0]);
+								var _ReferenceNodes = node.getElementsByTagName("Reference");
+					if (_ReferenceNodes && _ReferenceNodes.length > 0) {
+		result.Reference = deserializeNodeReferenceSubordinate(_ReferenceNodes[0]);
+					}
+					else{
+						result.Reference = null;
+					}
 							return result;
 		}
 
