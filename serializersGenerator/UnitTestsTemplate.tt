@@ -11,10 +11,15 @@
 	var types = _typesInfo.Types;
 
 	foreach (var type in types)
-	{#>
-	test("Deserializing <#=type.Name#>", function() {
+	{
+		var samples = _sampleDataBuilder.CreateAllSampleInstances(type).ToList(); 
+		
+		for (int i=0; i < samples.Count; i++)
+        {
+	#>
+	test("Deserializing <#=type.Name#>, sample <#=i#>", function() {
 		var xml = "<#
-			var instance = _sampleDataBuilder.CreateSampleInstance(type);  
+			var instance = samples[i];  
 
 			var serializer = new XmlSerializer(type);
 			var stringWriter = new StringWriter();
@@ -29,6 +34,7 @@
 		<#CompareObjectProperties("result", instance, type, types);#>	
 	});
 <#
+        }
 	}#>
 
 <#+
@@ -36,7 +42,15 @@
 	{
 		foreach (var property in type.GetProperties())
             {
-                object value = property.GetValue(instance, null);                
+                object value;
+				if (instance != null)
+                {
+					value = property.GetValue(instance, null);                
+                }
+				else
+				{
+					value = null;
+                }
                 
                 var propertyType = property.PropertyType;
                 if (propertyType == typeof(string))
@@ -52,7 +66,14 @@
                 }
 				else if (allTypes.Contains(propertyType))
 				{
-					CompareObjectProperties(string.Format("result.{0}", property.Name), value, propertyType, allTypes);				
+					if (value != null)
+                    {
+						CompareObjectProperties(string.Format("result.{0}", property.Name), value, propertyType, allTypes);
+					}
+					else
+					{
+						WriteLine("equal({0}.{1}, null);", objectName, property.Name);				
+                    }
                 }
 				else
                 {

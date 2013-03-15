@@ -90,21 +90,33 @@ namespace serializersGenerator
 
 	foreach (var type in types)
 	{
+		var samples = _sampleDataBuilder.CreateAllSampleInstances(type).ToList(); 
+		
+		for (int i=0; i < samples.Count; i++)
+        {
+	
             
             #line default
             #line hidden
             this.Write("\ttest(\"Deserializing ");
             
-            #line 15 "D:\development\net-xml-js\serializersGenerator\UnitTestsTemplate.tt"
+            #line 20 "D:\development\net-xml-js\serializersGenerator\UnitTestsTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(type.Name));
+            
+            #line default
+            #line hidden
+            this.Write(", sample ");
+            
+            #line 20 "D:\development\net-xml-js\serializersGenerator\UnitTestsTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(i));
             
             #line default
             #line hidden
             this.Write("\", function() {\r\n\t\tvar xml = \"");
             
-            #line 16 "D:\development\net-xml-js\serializersGenerator\UnitTestsTemplate.tt"
+            #line 21 "D:\development\net-xml-js\serializersGenerator\UnitTestsTemplate.tt"
 
-			var instance = _sampleDataBuilder.CreateSampleInstance(type);  
+			var instance = samples[i];  
 
 			var serializer = new XmlSerializer(type);
 			var stringWriter = new StringWriter();
@@ -119,22 +131,23 @@ namespace serializersGenerator
             #line hidden
             this.Write("\";\r\n\r\n\t\tvar result = netXmlSerializer.deserialize");
             
-            #line 28 "D:\development\net-xml-js\serializersGenerator\UnitTestsTemplate.tt"
+            #line 33 "D:\development\net-xml-js\serializersGenerator\UnitTestsTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(type.Name));
             
             #line default
             #line hidden
             this.Write("(xml);\r\n\t\t");
             
-            #line 29 "D:\development\net-xml-js\serializersGenerator\UnitTestsTemplate.tt"
+            #line 34 "D:\development\net-xml-js\serializersGenerator\UnitTestsTemplate.tt"
 CompareObjectProperties("result", instance, type, types);
             
             #line default
             #line hidden
             this.Write("\t\r\n\t});\r\n");
             
-            #line 31 "D:\development\net-xml-js\serializersGenerator\UnitTestsTemplate.tt"
+            #line 36 "D:\development\net-xml-js\serializersGenerator\UnitTestsTemplate.tt"
 
+        }
 	}
             
             #line default
@@ -143,13 +156,21 @@ CompareObjectProperties("result", instance, type, types);
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 34 "D:\development\net-xml-js\serializersGenerator\UnitTestsTemplate.tt"
+        #line 40 "D:\development\net-xml-js\serializersGenerator\UnitTestsTemplate.tt"
 
 	public void CompareObjectProperties(string objectName, object instance, Type type, IEnumerable<Type> allTypes)
 	{
 		foreach (var property in type.GetProperties())
             {
-                object value = property.GetValue(instance, null);                
+                object value;
+				if (instance != null)
+                {
+					value = property.GetValue(instance, null);                
+                }
+				else
+				{
+					value = null;
+                }
                 
                 var propertyType = property.PropertyType;
                 if (propertyType == typeof(string))
@@ -165,7 +186,14 @@ CompareObjectProperties("result", instance, type, types);
                 }
 				else if (allTypes.Contains(propertyType))
 				{
-					CompareObjectProperties(string.Format("result.{0}", property.Name), value, propertyType, allTypes);				
+					if (value != null)
+                    {
+						CompareObjectProperties(string.Format("result.{0}", property.Name), value, propertyType, allTypes);
+					}
+					else
+					{
+						WriteLine("equal({0}.{1}, null);", objectName, property.Name);				
+                    }
                 }
 				else
                 {

@@ -14,8 +14,25 @@ namespace serializersGenerator
             _customTypes = customTypes;
         }
 
-        public object CreateSampleInstance(Type type)
+        public object CreateDefaultInstance(Type type)
         {
+            return CreateInstance(type, 0, () => { });
+        }
+
+        public IEnumerable<object> CreateAllSampleInstances(Type type)
+        {
+            var requiredInstances = 1;
+
+            for (int i = 0; i < requiredInstances; i++)
+            {
+                yield return CreateInstance(type, i, () => requiredInstances *= 2);
+            }
+        }
+
+        private object CreateInstance(Type type, int index, Action onForkFound)
+        {
+            int fork = -1;
+
             var instance = Activator.CreateInstance(type);
             foreach (var property in type.GetProperties())
             {
@@ -36,7 +53,20 @@ namespace serializersGenerator
                 }
                 else if (_customTypes.Contains(propertyType))
                 {
-                    propertyValue = CreateSampleInstance(propertyType);
+                    if (index == 0)
+                    {
+                        onForkFound();
+                    }
+                    fork++;
+
+                    if ((index & (1<<fork) ) != 0)
+                    {
+                        propertyValue = null;
+                    }
+                    else
+                    {
+                        propertyValue = CreateDefaultInstance(propertyType);   
+                    }                    
                 }
                 else
                 {
@@ -44,15 +74,17 @@ namespace serializersGenerator
 
                     if (collectionType != null)
                     {
+                        //onForkFound();
+
                         var itemType = collectionType.GetGenericArguments().First();
                         var addMethod = collectionType.GetMethod("Add");
 
-                        var collection = Activator.CreateInstance(propertyType);                        
+                        var collection = Activator.CreateInstance(propertyType);
 
                         for (int i = 0; i < 2; i++)
                         {
-                            var item = CreateSampleInstance(itemType);
-                            addMethod.Invoke(collection, new [] { item });
+                            var item = CreateDefaultInstance(itemType);
+                            addMethod.Invoke(collection, new[] { item });
                         }
 
                         propertyValue = collection;
