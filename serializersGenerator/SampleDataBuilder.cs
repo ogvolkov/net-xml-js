@@ -74,20 +74,31 @@ namespace serializersGenerator
 
                     if (collectionType != null)
                     {
-                        //onForkFound();
-
-                        var itemType = collectionType.GetGenericArguments().First();
-                        var addMethod = collectionType.GetMethod("Add");
-
-                        var collection = Activator.CreateInstance(propertyType);
-
-                        for (int i = 0; i < 2; i++)
+                        if (index == 0)
                         {
-                            var item = CreateDefaultInstance(itemType);
-                            addMethod.Invoke(collection, new[] { item });
+                            onForkFound();
                         }
+                        fork++;
 
-                        propertyValue = collection;
+                        if ((index & (1 << fork)) != 0)
+                        {
+                            var itemType = collectionType.GetGenericArguments().First();
+                            var addMethod = collectionType.GetMethod("Add");
+
+                            var collection = Activator.CreateInstance(propertyType);
+
+                            for (int i = 0; i < 2; i++)
+                            {
+                                var item = CreateDefaultInstance(itemType);
+                                addMethod.Invoke(collection, new[] { item });
+                            }
+
+                            propertyValue = collection;
+                        }
+                        else
+                        {
+                            propertyValue = null;
+                        }
                     }
                 }
 

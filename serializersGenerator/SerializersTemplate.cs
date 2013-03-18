@@ -255,72 +255,107 @@ var netXmlSerializer = (function(){
             
             #line default
             #line hidden
-            this.Write("Nodes = node.getElementsByTagName(\"");
+            this.Write("CollectionNode = node.getElementsByTagName(\"");
             
             #line 59 "D:\development\net-xml-js\serializersGenerator\SerializersTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(property.Name));
             
             #line default
             #line hidden
-            this.Write("\")[0].getElementsByTagName(\"");
-            
-            #line 59 "D:\development\net-xml-js\serializersGenerator\SerializersTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(itemType.Name));
-            
-            #line default
-            #line hidden
-            this.Write("\");\r\n\t\t\t\t\tvar _");
+            this.Write("\");\r\n\t\t\t\t\tif (_");
             
             #line 60 "D:\development\net-xml-js\serializersGenerator\SerializersTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(property.Name));
             
             #line default
             #line hidden
-            this.Write("Item;\r\n\t\t\t\t\tfor (i = 0; i < _");
+            this.Write("CollectionNode != null && _");
+            
+            #line 60 "D:\development\net-xml-js\serializersGenerator\SerializersTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(property.Name));
+            
+            #line default
+            #line hidden
+            this.Write("CollectionNode.length > 0) {\r\n\t\t\t\t\t\tvar _");
             
             #line 61 "D:\development\net-xml-js\serializersGenerator\SerializersTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(property.Name));
             
             #line default
             #line hidden
-            this.Write("Nodes.length; i++)\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t_");
+            this.Write("Nodes = _");
+            
+            #line 61 "D:\development\net-xml-js\serializersGenerator\SerializersTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(property.Name));
+            
+            #line default
+            #line hidden
+            this.Write("CollectionNode[0].getElementsByTagName(\"");
+            
+            #line 61 "D:\development\net-xml-js\serializersGenerator\SerializersTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(itemType.Name));
+            
+            #line default
+            #line hidden
+            this.Write("\");\r\n\t\t\t\t\t\tvar _");
+            
+            #line 62 "D:\development\net-xml-js\serializersGenerator\SerializersTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(property.Name));
+            
+            #line default
+            #line hidden
+            this.Write("Item;\r\n\t\t\t\t\t\tfor (i = 0; i < _");
             
             #line 63 "D:\development\net-xml-js\serializersGenerator\SerializersTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(property.Name));
+            
+            #line default
+            #line hidden
+            this.Write("Nodes.length; i++)\r\n\t\t\t\t\t\t{\r\n\t\t\t\t\t\t\t_");
+            
+            #line 65 "D:\development\net-xml-js\serializersGenerator\SerializersTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(property.Name));
             
             #line default
             #line hidden
             this.Write("Item = deserializeNode");
             
-            #line 63 "D:\development\net-xml-js\serializersGenerator\SerializersTemplate.tt"
+            #line 65 "D:\development\net-xml-js\serializersGenerator\SerializersTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(itemType.Name));
             
             #line default
             #line hidden
             this.Write("(_");
             
-            #line 63 "D:\development\net-xml-js\serializersGenerator\SerializersTemplate.tt"
+            #line 65 "D:\development\net-xml-js\serializersGenerator\SerializersTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(property.Name));
             
             #line default
             #line hidden
-            this.Write("Nodes[i]);\r\n\t\t\t\t\t\t result.");
+            this.Write("Nodes[i]);\r\n\t\t\t\t\t\t\t\tresult.");
             
-            #line 64 "D:\development\net-xml-js\serializersGenerator\SerializersTemplate.tt"
+            #line 66 "D:\development\net-xml-js\serializersGenerator\SerializersTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(property.Name));
             
             #line default
             #line hidden
             this.Write(".push(_");
             
-            #line 64 "D:\development\net-xml-js\serializersGenerator\SerializersTemplate.tt"
+            #line 66 "D:\development\net-xml-js\serializersGenerator\SerializersTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(property.Name));
             
             #line default
             #line hidden
-            this.Write("Item);\r\n\t\t\t\t\t}\t\t\t\t\t\r\n\t\t\t\t");
+            this.Write("Item);\r\n\t\t\t\t\t\t}\t\t\t\t\t\r\n\t\t\t\t\t}\r\n\t\t\t\t\telse{\r\n\t\t\t\t\t\tresult.");
             
-            #line 66 "D:\development\net-xml-js\serializersGenerator\SerializersTemplate.tt"
+            #line 70 "D:\development\net-xml-js\serializersGenerator\SerializersTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(property.Name));
+            
+            #line default
+            #line hidden
+            this.Write(" = null;\r\n\t\t\t\t\t}\r\n\t\t\t\t");
+            
+            #line 72 "D:\development\net-xml-js\serializersGenerator\SerializersTemplate.tt"
 
                     }
 					else
@@ -331,21 +366,21 @@ var netXmlSerializer = (function(){
             #line hidden
             this.Write("        result.");
             
-            #line 71 "D:\development\net-xml-js\serializersGenerator\SerializersTemplate.tt"
+            #line 77 "D:\development\net-xml-js\serializersGenerator\SerializersTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(property.Name));
             
             #line default
             #line hidden
             this.Write(" = node.getElementsByTagName(\"");
             
-            #line 71 "D:\development\net-xml-js\serializersGenerator\SerializersTemplate.tt"
+            #line 77 "D:\development\net-xml-js\serializersGenerator\SerializersTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(property.Name));
             
             #line default
             #line hidden
             this.Write("\")[0].textContent;\r\n                ");
             
-            #line 72 "D:\development\net-xml-js\serializersGenerator\SerializersTemplate.tt"
+            #line 78 "D:\development\net-xml-js\serializersGenerator\SerializersTemplate.tt"
 }
 				}
 			}
@@ -354,7 +389,7 @@ var netXmlSerializer = (function(){
             #line hidden
             this.Write("\t\t\treturn result;\r\n\t\t}\r\n\r\n\t");
             
-            #line 78 "D:\development\net-xml-js\serializersGenerator\SerializersTemplate.tt"
+            #line 84 "D:\development\net-xml-js\serializersGenerator\SerializersTemplate.tt"
 
 	}			
 	
@@ -363,7 +398,7 @@ var netXmlSerializer = (function(){
             #line hidden
             this.Write("    return {\r\n\t\t");
             
-            #line 82 "D:\development\net-xml-js\serializersGenerator\SerializersTemplate.tt"
+            #line 88 "D:\development\net-xml-js\serializersGenerator\SerializersTemplate.tt"
 
 			foreach (var type in types)
 		{
@@ -372,7 +407,7 @@ var netXmlSerializer = (function(){
             #line hidden
             this.Write("\t\t\tdeserialize");
             
-            #line 85 "D:\development\net-xml-js\serializersGenerator\SerializersTemplate.tt"
+            #line 91 "D:\development\net-xml-js\serializersGenerator\SerializersTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(type.Name));
             
             #line default
@@ -380,14 +415,14 @@ var netXmlSerializer = (function(){
             this.Write(": function(xml) {\r\n\t\t\t\t\t\tvar xmlDoc = parseXml(xml);\t\t\t\t\t\r\n\t\t\t\t\t\treturn deseriali" +
                     "zeNode");
             
-            #line 87 "D:\development\net-xml-js\serializersGenerator\SerializersTemplate.tt"
+            #line 93 "D:\development\net-xml-js\serializersGenerator\SerializersTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(type.Name));
             
             #line default
             #line hidden
             this.Write("(xmlDoc);\r\n\t\t\t\t\t},\r\n\t\t");
             
-            #line 89 "D:\development\net-xml-js\serializersGenerator\SerializersTemplate.tt"
+            #line 95 "D:\development\net-xml-js\serializersGenerator\SerializersTemplate.tt"
 
 		}			
 		

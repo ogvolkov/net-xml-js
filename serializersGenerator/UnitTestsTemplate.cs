@@ -204,12 +204,19 @@ CompareObjectProperties("result", instance, type, types);
 						var itemType = collectionType.GetGenericArguments().First();
 						var items = value as IEnumerable;
 
-						int index = 0;
-						foreach(var item in items)						
+						if (items != null)
                         {
-							var itemJsAccessor = string.Format("{0}.{1}[{2}]", objectName, property.Name, index);
-							CompareObjectProperties(itemJsAccessor, item, itemType, allTypes);
-							++index;
+							int index = 0;
+							foreach(var item in items)						
+							{
+								var itemJsAccessor = string.Format("{0}.{1}[{2}]", objectName, property.Name, index);
+								CompareObjectProperties(itemJsAccessor, item, itemType, allTypes);
+								++index;
+							}
+                        }
+						else
+						{
+							WriteLine("equal({0}.{1}, null);", objectName, property.Name);
 						}
 					}
 					else
