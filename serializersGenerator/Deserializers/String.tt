@@ -1,0 +1,8 @@
+﻿<#@ template language="C#" #>
+
+<#+
+	private void DeserializeString(string propertyName)
+    {#>
+		 result.<#=propertyName#> = node.getElementsByTagName("<#=propertyName#>")[0].textContent;
+	<#+}
+#>

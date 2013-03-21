@@ -1,0 +1,21 @@
+﻿<#@ template language="C#" #>
+
+<#+
+	private void DeserializeCollection(string propertyName, string itemTypeName)
+	{#>
+		result.<#=propertyName#> = [];
+		var _<#=propertyName#>CollectionNode = node.getElementsByTagName("<#=propertyName#>");
+		if (_<#=propertyName#>CollectionNode != null && _<#=propertyName#>CollectionNode.length > 0) {
+			var _<#=propertyName#>Nodes = _<#=propertyName#>CollectionNode[0].getElementsByTagName("<#=itemTypeName#>");
+			var _<#=propertyName#>Item;
+			for (i = 0; i < _<#=propertyName#>Nodes.length; i++)
+			{
+				_<#=propertyName#>Item = deserializeNode<#=itemTypeName#>(_<#=propertyName#>Nodes[i]);
+					result.<#=propertyName#>.push(_<#=propertyName#>Item);
+			}					
+		}
+		else{
+			result.<#=propertyName#> = null;
+		}
+	<#+}
+#>

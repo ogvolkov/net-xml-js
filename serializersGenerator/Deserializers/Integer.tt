@@ -1,0 +1,10 @@
+﻿<#@ template language="C#" #>
+
+<#+
+	private void DeserializeInt(string propertyName)
+	{
+#>
+		result.<#=propertyName#> = parseInt(node.getElementsByTagName("<#=propertyName#>")[0].textContent);
+<#+
+	}
+#>

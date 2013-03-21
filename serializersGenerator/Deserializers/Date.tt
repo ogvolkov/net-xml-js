@@ -1,0 +1,10 @@
+﻿<#@ template language="C#" #>
+
+<#+
+	private void DeserializeDate(string propertyName)
+	{
+#>
+		result.<#=propertyName#> = new Date(Date.parse(node.getElementsByTagName("<#=propertyName#>")[0].textContent));
+<#+
+	}
+#>

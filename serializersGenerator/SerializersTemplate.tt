@@ -1,6 +1,12 @@
 ﻿<#@ template language="C#" #>
 <#@ import namespace="System.Linq" #>
 
+<#@ include file="Deserializers\String.tt" #>
+<#@ include file="Deserializers\Integer.tt" #>
+<#@ include file="Deserializers\Date.tt" #>
+<#@ include file="Deserializers\Reference.tt" #>
+<#@ include file="Deserializers\Collection.tt" #>
+
 var netXmlSerializer = (function(){
 // initialize cross-browser xml parser
     var parseXml = function() {
@@ -30,23 +36,17 @@ var netXmlSerializer = (function(){
 			{
 				var propertyType = property.PropertyType;
 				if (propertyType == typeof(DateTime))
-				{#>
-		result.<#=property.Name#> = new Date(Date.parse(node.getElementsByTagName("<#=property.Name#>")[0].textContent));
-                <#}
+				{
+					DeserializeDate(property.Name);
+				}
                 else if (propertyType == typeof(int))
-                {#>                    
-        result.<#=property.Name#> = parseInt(node.getElementsByTagName("<#=property.Name#>")[0].textContent);
-                <#}
+                {
+					DeserializeInt(property.Name);
+				}
 				else if (types.Contains(propertyType))
-                {#>
-					var _<#=property.Name#>Nodes = node.getElementsByTagName("<#=property.Name#>");
-					if (_<#=property.Name#>Nodes && _<#=property.Name#>Nodes.length > 0) {
-		result.<#=property.Name#> = deserializeNode<#=propertyType.Name#>(_<#=property.Name#>Nodes[0]);
-					}
-					else{
-						result.<#=property.Name#> = null;
-					}
-				<#}
+                {
+					DeserializeReference(property.Name, propertyType.Name);
+				}
                 else
                 {
 					var collectionType = TypesInfo.TryGetCollectionType(propertyType);					
@@ -54,28 +54,12 @@ var netXmlSerializer = (function(){
 					if (collectionType != null)
                     {
 						var itemType = collectionType.GetGenericArguments().First();
-				#>
-					result.<#=property.Name#> = [];
-					var _<#=property.Name#>CollectionNode = node.getElementsByTagName("<#=property.Name#>");
-					if (_<#=property.Name#>CollectionNode != null && _<#=property.Name#>CollectionNode.length > 0) {
-						var _<#=property.Name#>Nodes = _<#=property.Name#>CollectionNode[0].getElementsByTagName("<#=itemType.Name#>");
-						var _<#=property.Name#>Item;
-						for (i = 0; i < _<#=property.Name#>Nodes.length; i++)
-						{
-							_<#=property.Name#>Item = deserializeNode<#=itemType.Name#>(_<#=property.Name#>Nodes[i]);
-								result.<#=property.Name#>.push(_<#=property.Name#>Item);
-						}					
-					}
-					else{
-						result.<#=property.Name#> = null;
-					}
-				<#
-                    }
+						DeserializeCollection(property.Name, itemType.Name);
+				    }
 					else
 					{
-				#>
-        result.<#=property.Name#> = node.getElementsByTagName("<#=property.Name#>")[0].textContent;
-                <#}
+						DeserializeString(property.Name);
+                    }				
 				}
 			}#>
 			return result;

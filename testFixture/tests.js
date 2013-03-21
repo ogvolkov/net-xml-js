@@ -7,11 +7,11 @@
 	
 	});
 	test("Deserializing SampleIntDate, sample 0", function() {
-		var xml = "<SampleIntDate xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><Id>42</Id><Date>2013-03-18T15:06:56.8516769+02:00</Date></SampleIntDate>";
+		var xml = "<SampleIntDate xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><Id>42</Id><Date>2013-03-21T15:16:13.9040879+02:00</Date></SampleIntDate>";
 
 		var result = netXmlSerializer.deserializeSampleIntDate(xml);
 		equal(result.Id, 42);
-deepEqual(result.Date, new Date(1363612016851));
+deepEqual(result.Date, new Date(1363871773904));
 	
 	});
 	test("Deserializing ReferenceSubordinate, sample 0", function() {

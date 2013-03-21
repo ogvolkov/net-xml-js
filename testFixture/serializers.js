@@ -1,4 +1,15 @@
 
+
+
+
+
+
+
+
+
+
+
+
 var netXmlSerializer = (function(){
 // initialize cross-browser xml parser
     var parseXml = function() {
@@ -19,68 +30,62 @@ var netXmlSerializer = (function(){
     }();
 		function deserializeNodeSimple(node) {				
 				var result = {};
-			        result.Name = node.getElementsByTagName("Name")[0].textContent;
-                			return result;
+					 result.Name = node.getElementsByTagName("Name")[0].textContent;
+				return result;
 		}
 
 		function deserializeNodeSampleIntDate(node) {				
 				var result = {};
-			                    
-        result.Id = parseInt(node.getElementsByTagName("Id")[0].textContent);
-                		result.Date = new Date(Date.parse(node.getElementsByTagName("Date")[0].textContent));
-                			return result;
+					result.Id = parseInt(node.getElementsByTagName("Id")[0].textContent);
+		result.Date = new Date(Date.parse(node.getElementsByTagName("Date")[0].textContent));
+			return result;
 		}
 
 		function deserializeNodeReferenceSubordinate(node) {				
 				var result = {};
-			                    
-        result.Id = parseInt(node.getElementsByTagName("Id")[0].textContent);
-                        result.Name = node.getElementsByTagName("Name")[0].textContent;
-                			return result;
+					result.Id = parseInt(node.getElementsByTagName("Id")[0].textContent);
+		 result.Name = node.getElementsByTagName("Name")[0].textContent;
+				return result;
 		}
 
 		function deserializeNodeReferenceMain(node) {				
 				var result = {};
-								var _ReferenceNodes = node.getElementsByTagName("Reference");
-					if (_ReferenceNodes && _ReferenceNodes.length > 0) {
-		result.Reference = deserializeNodeReferenceSubordinate(_ReferenceNodes[0]);
-					}
-					else{
-						result.Reference = null;
-					}
-							return result;
+					var _ReferenceNodes = node.getElementsByTagName("Reference");
+		if (_ReferenceNodes && _ReferenceNodes.length > 0) {
+			result.Reference = deserializeNodeReferenceSubordinate(_ReferenceNodes[0]);
+		}
+		else{
+			result.Reference = null;
+		}
+				return result;
 		}
 
 		function deserializeNodeOrderLine(node) {				
 				var result = {};
-			                    
-        result.Id = parseInt(node.getElementsByTagName("Id")[0].textContent);
-                                    
-        result.Price = parseInt(node.getElementsByTagName("Price")[0].textContent);
-                                    
-        result.Quantity = parseInt(node.getElementsByTagName("Quantity")[0].textContent);
-                			return result;
+					result.Id = parseInt(node.getElementsByTagName("Id")[0].textContent);
+		result.Price = parseInt(node.getElementsByTagName("Price")[0].textContent);
+		result.Quantity = parseInt(node.getElementsByTagName("Quantity")[0].textContent);
+			return result;
 		}
 
 		function deserializeNodeOrder(node) {				
 				var result = {};
-			                    
-        result.Id = parseInt(node.getElementsByTagName("Id")[0].textContent);
-                					result.Lines = [];
-					var _LinesCollectionNode = node.getElementsByTagName("Lines");
-					if (_LinesCollectionNode != null && _LinesCollectionNode.length > 0) {
-						var _LinesNodes = _LinesCollectionNode[0].getElementsByTagName("OrderLine");
-						var _LinesItem;
-						for (i = 0; i < _LinesNodes.length; i++)
-						{
-							_LinesItem = deserializeNodeOrderLine(_LinesNodes[i]);
-								result.Lines.push(_LinesItem);
-						}					
-					}
-					else{
-						result.Lines = null;
-					}
-							return result;
+					result.Id = parseInt(node.getElementsByTagName("Id")[0].textContent);
+		result.Lines = [];
+		var _LinesCollectionNode = node.getElementsByTagName("Lines");
+		if (_LinesCollectionNode != null && _LinesCollectionNode.length > 0) {
+			var _LinesNodes = _LinesCollectionNode[0].getElementsByTagName("OrderLine");
+			var _LinesItem;
+			for (i = 0; i < _LinesNodes.length; i++)
+			{
+				_LinesItem = deserializeNodeOrderLine(_LinesNodes[i]);
+					result.Lines.push(_LinesItem);
+			}					
+		}
+		else{
+			result.Lines = null;
+		}
+				return result;
 		}
 
 	    return {
