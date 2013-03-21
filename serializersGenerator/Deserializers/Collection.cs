@@ -75,255 +75,121 @@ namespace serializersGenerator.Deserializers
         public virtual string TransformText()
         {
             this.GenerationEnvironment = null;
-            this.Write("\r\n");
+            this.Write("result.");
+            
+            #line 1 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(propertyName));
+            
+            #line default
+            #line hidden
+            this.Write(" = [];\r\nvar _");
+            
+            #line 2 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(propertyName));
+            
+            #line default
+            #line hidden
+            this.Write("CollectionNode = node.getElementsByTagName(\"");
+            
+            #line 2 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(propertyName));
+            
+            #line default
+            #line hidden
+            this.Write("\");\r\nif (_");
+            
+            #line 3 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(propertyName));
+            
+            #line default
+            #line hidden
+            this.Write("CollectionNode != null && _");
+            
+            #line 3 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(propertyName));
+            
+            #line default
+            #line hidden
+            this.Write("CollectionNode.length > 0) {\r\n\tvar _");
+            
+            #line 4 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(propertyName));
+            
+            #line default
+            #line hidden
+            this.Write("Nodes = _");
+            
+            #line 4 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(propertyName));
+            
+            #line default
+            #line hidden
+            this.Write("CollectionNode[0].getElementsByTagName(\"");
+            
+            #line 4 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(itemTypeName));
+            
+            #line default
+            #line hidden
+            this.Write("\");\r\n\tvar _");
+            
+            #line 5 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(propertyName));
+            
+            #line default
+            #line hidden
+            this.Write("Item;\r\n\tfor (i = 0; i < _");
+            
+            #line 6 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(propertyName));
+            
+            #line default
+            #line hidden
+            this.Write("Nodes.length; i++)\r\n\t{\r\n\t\t_");
+            
+            #line 8 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(propertyName));
+            
+            #line default
+            #line hidden
+            this.Write("Item = deserializeNode");
+            
+            #line 8 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(itemTypeName));
+            
+            #line default
+            #line hidden
+            this.Write("(_");
+            
+            #line 8 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(propertyName));
+            
+            #line default
+            #line hidden
+            this.Write("Nodes[i]);\r\n\t\t\tresult.");
+            
+            #line 9 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(propertyName));
+            
+            #line default
+            #line hidden
+            this.Write(".push(_");
+            
+            #line 9 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(propertyName));
+            
+            #line default
+            #line hidden
+            this.Write("Item);\r\n\t}\t\t\t\t\t\r\n}\r\nelse{\r\n\tresult.");
+            
+            #line 13 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(propertyName));
+            
+            #line default
+            #line hidden
+            this.Write(" = null;\r\n}");
             return this.GenerationEnvironment.ToString();
         }
-        
-        #line 3 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
-
-	private void DeserializeCollection(string propertyName, string itemTypeName)
-	{
-        
-        #line default
-        #line hidden
-        
-        #line 5 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
-this.Write("\t\tresult.");
-
-        
-        #line default
-        #line hidden
-        
-        #line 6 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
-this.Write(this.ToStringHelper.ToStringWithCulture(propertyName));
-
-        
-        #line default
-        #line hidden
-        
-        #line 6 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
-this.Write(" = [];\r\n\t\tvar _");
-
-        
-        #line default
-        #line hidden
-        
-        #line 7 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
-this.Write(this.ToStringHelper.ToStringWithCulture(propertyName));
-
-        
-        #line default
-        #line hidden
-        
-        #line 7 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
-this.Write("CollectionNode = node.getElementsByTagName(\"");
-
-        
-        #line default
-        #line hidden
-        
-        #line 7 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
-this.Write(this.ToStringHelper.ToStringWithCulture(propertyName));
-
-        
-        #line default
-        #line hidden
-        
-        #line 7 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
-this.Write("\");\r\n\t\tif (_");
-
-        
-        #line default
-        #line hidden
-        
-        #line 8 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
-this.Write(this.ToStringHelper.ToStringWithCulture(propertyName));
-
-        
-        #line default
-        #line hidden
-        
-        #line 8 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
-this.Write("CollectionNode != null && _");
-
-        
-        #line default
-        #line hidden
-        
-        #line 8 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
-this.Write(this.ToStringHelper.ToStringWithCulture(propertyName));
-
-        
-        #line default
-        #line hidden
-        
-        #line 8 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
-this.Write("CollectionNode.length > 0) {\r\n\t\t\tvar _");
-
-        
-        #line default
-        #line hidden
-        
-        #line 9 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
-this.Write(this.ToStringHelper.ToStringWithCulture(propertyName));
-
-        
-        #line default
-        #line hidden
-        
-        #line 9 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
-this.Write("Nodes = _");
-
-        
-        #line default
-        #line hidden
-        
-        #line 9 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
-this.Write(this.ToStringHelper.ToStringWithCulture(propertyName));
-
-        
-        #line default
-        #line hidden
-        
-        #line 9 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
-this.Write("CollectionNode[0].getElementsByTagName(\"");
-
-        
-        #line default
-        #line hidden
-        
-        #line 9 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
-this.Write(this.ToStringHelper.ToStringWithCulture(itemTypeName));
-
-        
-        #line default
-        #line hidden
-        
-        #line 9 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
-this.Write("\");\r\n\t\t\tvar _");
-
-        
-        #line default
-        #line hidden
-        
-        #line 10 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
-this.Write(this.ToStringHelper.ToStringWithCulture(propertyName));
-
-        
-        #line default
-        #line hidden
-        
-        #line 10 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
-this.Write("Item;\r\n\t\t\tfor (i = 0; i < _");
-
-        
-        #line default
-        #line hidden
-        
-        #line 11 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
-this.Write(this.ToStringHelper.ToStringWithCulture(propertyName));
-
-        
-        #line default
-        #line hidden
-        
-        #line 11 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
-this.Write("Nodes.length; i++)\r\n\t\t\t{\r\n\t\t\t\t_");
-
-        
-        #line default
-        #line hidden
-        
-        #line 13 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
-this.Write(this.ToStringHelper.ToStringWithCulture(propertyName));
-
-        
-        #line default
-        #line hidden
-        
-        #line 13 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
-this.Write("Item = deserializeNode");
-
-        
-        #line default
-        #line hidden
-        
-        #line 13 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
-this.Write(this.ToStringHelper.ToStringWithCulture(itemTypeName));
-
-        
-        #line default
-        #line hidden
-        
-        #line 13 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
-this.Write("(_");
-
-        
-        #line default
-        #line hidden
-        
-        #line 13 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
-this.Write(this.ToStringHelper.ToStringWithCulture(propertyName));
-
-        
-        #line default
-        #line hidden
-        
-        #line 13 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
-this.Write("Nodes[i]);\r\n\t\t\t\t\tresult.");
-
-        
-        #line default
-        #line hidden
-        
-        #line 14 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
-this.Write(this.ToStringHelper.ToStringWithCulture(propertyName));
-
-        
-        #line default
-        #line hidden
-        
-        #line 14 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
-this.Write(".push(_");
-
-        
-        #line default
-        #line hidden
-        
-        #line 14 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
-this.Write(this.ToStringHelper.ToStringWithCulture(propertyName));
-
-        
-        #line default
-        #line hidden
-        
-        #line 14 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
-this.Write("Item);\r\n\t\t\t}\t\t\t\t\t\r\n\t\t}\r\n\t\telse{\r\n\t\t\tresult.");
-
-        
-        #line default
-        #line hidden
-        
-        #line 18 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
-this.Write(this.ToStringHelper.ToStringWithCulture(propertyName));
-
-        
-        #line default
-        #line hidden
-        
-        #line 18 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
-this.Write(" = null;\r\n\t\t}\r\n\t");
-
-        
-        #line default
-        #line hidden
-        
-        #line 20 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
-}
-
-        
-        #line default
-        #line hidden
     }
     
     #line default

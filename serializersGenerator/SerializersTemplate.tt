@@ -1,12 +1,6 @@
 ﻿<#@ template language="C#" #>
 <#@ import namespace="System.Linq" #>
 
-<#@ include file="Deserializers\String.tt" #>
-<#@ include file="Deserializers\Integer.tt" #>
-<#@ include file="Deserializers\Date.tt" #>
-<#@ include file="Deserializers\Reference.tt" #>
-<#@ include file="Deserializers\Collection.tt" #>
-
 var netXmlSerializer = (function(){
 // initialize cross-browser xml parser
     var parseXml = function() {
@@ -32,20 +26,23 @@ var netXmlSerializer = (function(){
 		{#>
 	function deserializeNode<#=type.Name#>(node) {				
 				var result = {};
-			<# foreach (var property in type.GetProperties())
+			<# 
+			var propertyVisitor = new DeserializePropertyGenerator();
+
+			foreach (var property in type.GetProperties())
 			{
 				var propertyType = property.PropertyType;
 				if (propertyType == typeof(DateTime))
 				{
-					DeserializeDate(property.Name);
+					WriteLine(propertyVisitor.VisitDate(property.Name));					
 				}
                 else if (propertyType == typeof(int))
-                {
-					DeserializeInt(property.Name);
+                {		
+					WriteLine(propertyVisitor.VisitInteger(property.Name));
 				}
 				else if (types.Contains(propertyType))
                 {
-					DeserializeReference(property.Name, propertyType.Name);
+					WriteLine(propertyVisitor.VisitReference(property.Name, propertyType.Name));
 				}
                 else
                 {
@@ -54,11 +51,11 @@ var netXmlSerializer = (function(){
 					if (collectionType != null)
                     {
 						var itemType = collectionType.GetGenericArguments().First();
-						DeserializeCollection(property.Name, itemType.Name);
+						WriteLine(propertyVisitor.VisitCollection(property.Name, itemType.Name));
 				    }
 					else
 					{
-						DeserializeString(property.Name);
+						WriteLine(propertyVisitor.VisitString(property.Name));
                     }				
 				}
 			}#>

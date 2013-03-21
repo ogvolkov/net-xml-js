@@ -41,6 +41,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Collection.tt</DependentUpon>
     </Compile>
+    <Compile Include="Deserializers\CollectionPartial.cs" />
+    <Compile Include="Deserializers\StringPartial.cs" />
+    <Compile Include="Deserializers\ReferencePartial.cs" />
+    <Compile Include="Deserializers\DatePartial.cs" />
+    <Compile Include="Deserializers\IntegerPartial.cs" />
     <Compile Include="Deserializers\Reference.cs">
       <DependentUpon>Reference.tt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -61,6 +66,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>String.tt</DependentUpon>
     </Compile>
+    <Compile Include="DeserializePropertyGenerator.cs" />
     <Compile Include="UnitTestsTemplatePartial.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AssemblyInfo.cs" />

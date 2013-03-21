@@ -1,14 +1,7 @@
-﻿<#@ template language="C#" #>
-
-<#+
-	private void DeserializeReference(string propertyName, string propertyTypeName)
-    {#>
-		var _<#=propertyName#>Nodes = node.getElementsByTagName("<#=propertyName#>");
-		if (_<#=propertyName#>Nodes && _<#=propertyName#>Nodes.length > 0) {
-			result.<#=propertyName#> = deserializeNode<#=propertyTypeName#>(_<#=propertyName#>Nodes[0]);
-		}
-		else{
-			result.<#=propertyName#> = null;
-		}
-	<#+}
-#>
+﻿var _<#=propertyName#>Nodes = node.getElementsByTagName("<#=propertyName#>");
+if (_<#=propertyName#>Nodes && _<#=propertyName#>Nodes.length > 0) {
+	result.<#=propertyName#> = deserializeNode<#=propertyTypeName#>(_<#=propertyName#>Nodes[0]);
+}
+else{
+	result.<#=propertyName#> = null;
+}

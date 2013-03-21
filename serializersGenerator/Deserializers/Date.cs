@@ -75,61 +75,23 @@ namespace serializersGenerator.Deserializers
         public virtual string TransformText()
         {
             this.GenerationEnvironment = null;
-            this.Write("\r\n");
+            this.Write("result.");
+            
+            #line 1 "D:\development\net-xml-js\serializersGenerator\Deserializers\Date.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(propertyName));
+            
+            #line default
+            #line hidden
+            this.Write(" = new Date(Date.parse(node.getElementsByTagName(\"");
+            
+            #line 1 "D:\development\net-xml-js\serializersGenerator\Deserializers\Date.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(propertyName));
+            
+            #line default
+            #line hidden
+            this.Write("\")[0].textContent));");
             return this.GenerationEnvironment.ToString();
         }
-        
-        #line 3 "D:\development\net-xml-js\serializersGenerator\Deserializers\Date.tt"
-
-	private void DeserializeDate(string propertyName)
-	{
-
-        
-        #line default
-        #line hidden
-        
-        #line 6 "D:\development\net-xml-js\serializersGenerator\Deserializers\Date.tt"
-this.Write("\t\tresult.");
-
-        
-        #line default
-        #line hidden
-        
-        #line 7 "D:\development\net-xml-js\serializersGenerator\Deserializers\Date.tt"
-this.Write(this.ToStringHelper.ToStringWithCulture(propertyName));
-
-        
-        #line default
-        #line hidden
-        
-        #line 7 "D:\development\net-xml-js\serializersGenerator\Deserializers\Date.tt"
-this.Write(" = new Date(Date.parse(node.getElementsByTagName(\"");
-
-        
-        #line default
-        #line hidden
-        
-        #line 7 "D:\development\net-xml-js\serializersGenerator\Deserializers\Date.tt"
-this.Write(this.ToStringHelper.ToStringWithCulture(propertyName));
-
-        
-        #line default
-        #line hidden
-        
-        #line 7 "D:\development\net-xml-js\serializersGenerator\Deserializers\Date.tt"
-this.Write("\")[0].textContent));\r\n");
-
-        
-        #line default
-        #line hidden
-        
-        #line 8 "D:\development\net-xml-js\serializersGenerator\Deserializers\Date.tt"
-
-	}
-
-        
-        #line default
-        #line hidden
     }
     
     #line default

@@ -6,12 +6,33 @@
 		equal(result.Name, "Test");
 	
 	});
+	test("Deserializing Order, sample 0", function() {
+		var xml = "<Order xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><Id>42</Id></Order>";
+
+		var result = netXmlSerializer.deserializeOrder(xml);
+		equal(result.Id, 42);
+equal(result.Lines, null);
+	
+	});
+	test("Deserializing Order, sample 1", function() {
+		var xml = "<Order xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><Id>42</Id><Lines><OrderLine><Id>42</Id><Price>42</Price><Quantity>42</Quantity></OrderLine><OrderLine><Id>42</Id><Price>42</Price><Quantity>42</Quantity></OrderLine></Lines></Order>";
+
+		var result = netXmlSerializer.deserializeOrder(xml);
+		equal(result.Id, 42);
+equal(result.Lines[0].Id, 42);
+equal(result.Lines[0].Price, 42);
+equal(result.Lines[0].Quantity, 42);
+equal(result.Lines[1].Id, 42);
+equal(result.Lines[1].Price, 42);
+equal(result.Lines[1].Quantity, 42);
+	
+	});
 	test("Deserializing SampleIntDate, sample 0", function() {
-		var xml = "<SampleIntDate xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><Id>42</Id><Date>2013-03-21T15:16:13.9040879+02:00</Date></SampleIntDate>";
+		var xml = "<SampleIntDate xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><Id>42</Id><Date>2013-03-21T16:08:02.5088899+02:00</Date></SampleIntDate>";
 
 		var result = netXmlSerializer.deserializeSampleIntDate(xml);
 		equal(result.Id, 42);
-deepEqual(result.Date, new Date(1363871773904));
+deepEqual(result.Date, new Date(1363874882508));
 	
 	});
 	test("Deserializing ReferenceSubordinate, sample 0", function() {
@@ -44,27 +65,6 @@ equal(result.Reference.Name, "Test");
 		equal(result.Id, 42);
 equal(result.Price, 42);
 equal(result.Quantity, 42);
-	
-	});
-	test("Deserializing Order, sample 0", function() {
-		var xml = "<Order xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><Id>42</Id></Order>";
-
-		var result = netXmlSerializer.deserializeOrder(xml);
-		equal(result.Id, 42);
-equal(result.Lines, null);
-	
-	});
-	test("Deserializing Order, sample 1", function() {
-		var xml = "<Order xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><Id>42</Id><Lines><OrderLine><Id>42</Id><Price>42</Price><Quantity>42</Quantity></OrderLine><OrderLine><Id>42</Id><Price>42</Price><Quantity>42</Quantity></OrderLine></Lines></Order>";
-
-		var result = netXmlSerializer.deserializeOrder(xml);
-		equal(result.Id, 42);
-equal(result.Lines[0].Id, 42);
-equal(result.Lines[0].Price, 42);
-equal(result.Lines[0].Quantity, 42);
-equal(result.Lines[1].Id, 42);
-equal(result.Lines[1].Price, 42);
-equal(result.Lines[1].Quantity, 42);
 	
 	});
 
