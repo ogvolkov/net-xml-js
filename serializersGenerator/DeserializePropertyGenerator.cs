@@ -1,37 +1,51 @@
-﻿using serializersGenerator.Deserializers;
+﻿using System;
+
+using serializersGenerator.Deserializers;
 
 namespace serializersGenerator
 {
-    class DeserializePropertyGenerator
+    class DeserializePropertyGenerator : IPropertyVisitor
     {
-        public string VisitString(string propertyName)
+        private readonly Action<string> _resultHandler;
+
+        public DeserializePropertyGenerator(Action<string> resultHandler)
         {
-            var template = new String(propertyName);
-            return template.TransformText();
+            if (resultHandler == null)
+            {
+                throw new ArgumentNullException("resultHandler");
+            }
+
+            _resultHandler = resultHandler;
         }
 
-        public string VisitInteger(string propertyName)
+        public void VisitString(string propertyName)
+        {
+            var template = new Deserializers.String(propertyName);
+            _resultHandler(template.TransformText());
+        }
+
+        public void VisitInteger(string propertyName)
         {
             var template = new Integer(propertyName);
-            return template.TransformText();
+            _resultHandler(template.TransformText());
         }
 
-        public string VisitDate(string propertyName)
+        public void VisitDate(string propertyName)
         {
             var template = new Date(propertyName);
-            return template.TransformText();
+            _resultHandler(template.TransformText());
         }
 
-        public string VisitReference(string propertyName, string propertyTypeName)
+        public void VisitReference(string propertyName, string propertyTypeName)
         {
             var template = new Reference(propertyName, propertyTypeName);
-            return template.TransformText();
+            _resultHandler(template.TransformText());
         }
 
-        public string VisitCollection(string propertyName, string itemTypeName)
+        public void VisitCollection(string propertyName, string itemTypeName)
         {
             var template = new Collection(propertyName, itemTypeName);
-            return template.TransformText();
+            _resultHandler(template.TransformText());
         }
     }
 }

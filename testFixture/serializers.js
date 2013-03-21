@@ -1,4 +1,3 @@
-
 var netXmlSerializer = (function(){
 // initialize cross-browser xml parser
     var parseXml = function() {

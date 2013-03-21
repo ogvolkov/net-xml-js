@@ -1,7 +1,4 @@
-﻿<#@ template language="C#" #>
-<#@ import namespace="System.Linq" #>
-
-var netXmlSerializer = (function(){
+﻿var netXmlSerializer = (function(){
 // initialize cross-browser xml parser
     var parseXml = function() {
         if (typeof window.DOMParser != "undefined") {
@@ -21,44 +18,19 @@ var netXmlSerializer = (function(){
     }();
 	<# 
 		var types = _typesInfo.Types;
+		var deserializePropertyGenerator = new DeserializePropertyGenerator(WriteLine);
+		var propertyProcessor = new PropertyProcessor(deserializePropertyGenerator, types);		
 			
 		foreach (var type in types)
 		{#>
 	function deserializeNode<#=type.Name#>(node) {				
 				var result = {};
 			<# 
-			var propertyVisitor = new DeserializePropertyGenerator();
-
-			foreach (var property in type.GetProperties())
-			{
-				var propertyType = property.PropertyType;
-				if (propertyType == typeof(DateTime))
-				{
-					WriteLine(propertyVisitor.VisitDate(property.Name));					
-				}
-                else if (propertyType == typeof(int))
-                {		
-					WriteLine(propertyVisitor.VisitInteger(property.Name));
-				}
-				else if (types.Contains(propertyType))
+				foreach(var property in type.GetProperties())
                 {
-					WriteLine(propertyVisitor.VisitReference(property.Name, propertyType.Name));
+					propertyProcessor.Process(property);
 				}
-                else
-                {
-					var collectionType = TypesInfo.TryGetCollectionType(propertyType);					
-
-					if (collectionType != null)
-                    {
-						var itemType = collectionType.GetGenericArguments().First();
-						WriteLine(propertyVisitor.VisitCollection(property.Name, itemType.Name));
-				    }
-					else
-					{
-						WriteLine(propertyVisitor.VisitString(property.Name));
-                    }				
-				}
-			}#>
+			#>
 			return result;
 		}
 

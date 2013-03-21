@@ -67,6 +67,8 @@
       <DependentUpon>String.tt</DependentUpon>
     </Compile>
     <Compile Include="DeserializePropertyGenerator.cs" />
+    <Compile Include="IPropertyVisitor.cs" />
+    <Compile Include="PropertyProcessor.cs" />
     <Compile Include="UnitTestsTemplatePartial.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AssemblyInfo.cs" />
