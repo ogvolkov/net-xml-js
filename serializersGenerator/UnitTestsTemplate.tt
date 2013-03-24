@@ -31,79 +31,9 @@
 		#>";
 
 		var result = netXmlSerializer.deserialize<#=type.Name#>(xml);
-		<#CompareObjectProperties("result", instance, type, types);#>	
+		<# var propertiesComparer = new ObjectPropertiesComparer(WriteLine, types);
+		propertiesComparer.CompareObjectProperties("result", instance, type);#>		
 	});
 <#
         }
 	}#>
-
-<#+
-	public void CompareObjectProperties(string objectName, object instance, Type type, IEnumerable<Type> allTypes)
-	{
-		foreach (var property in type.GetProperties())
-            {
-                object value;
-				if (instance != null)
-                {
-					value = property.GetValue(instance, null);                
-                }
-				else
-				{
-					value = null;
-                }
-                
-                var propertyType = property.PropertyType;
-                if (propertyType == typeof(string))
-                {
-                    var jsEncodedString = HttpUtility.JavaScriptStringEncode((string)value);                    
-					WriteLine("equal({0}.{1}, {2});", objectName, property.Name, string.Format("\"{0}\"", jsEncodedString));				
-                }
-                else if (propertyType == typeof(DateTime))
-                {
-                    var unixTime = (((DateTime)value).ToUniversalTime() - new DateTime(1970, 1, 1)).TotalMilliseconds;
-                    var date = string.Format("new Date({0})", Math.Truncate(unixTime));
-					WriteLine("deepEqual({0}.{1}, {2});", objectName, property.Name, date);					
-                }
-				else if (allTypes.Contains(propertyType))
-				{
-					if (value != null)
-                    {
-						CompareObjectProperties(string.Format("result.{0}", property.Name), value, propertyType, allTypes);
-					}
-					else
-					{
-						WriteLine("equal({0}.{1}, null);", objectName, property.Name);				
-                    }
-                }
-				else
-                {
-					var collectionType = TypesInfo.TryGetCollectionType(propertyType);					
-
-					if (collectionType != null)
-                    {
-						var itemType = collectionType.GetGenericArguments().First();
-						var items = value as IEnumerable;
-
-						if (items != null)
-                        {
-							int index = 0;
-							foreach(var item in items)						
-							{
-								var itemJsAccessor = string.Format("{0}.{1}[{2}]", objectName, property.Name, index);
-								CompareObjectProperties(itemJsAccessor, item, itemType, allTypes);
-								++index;
-							}
-                        }
-						else
-						{
-							WriteLine("equal({0}.{1}, null);", objectName, property.Name);
-						}
-					}
-					else
-                    {
-						WriteLine("equal({0}.{1}, {2});", objectName, property.Name, value);					
-                    }
-                }
-            }
-	}
-#>

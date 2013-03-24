@@ -36,21 +36,46 @@
     <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Asserts\DatePartial.cs" />
+    <Compile Include="Asserts\Date.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Date.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Asserts\Integer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Integer.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Asserts\IntegerPartial.cs" />
+    <Compile Include="Asserts\NullPropertyValue.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NullPropertyValue.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Asserts\NullPropertyValuePartial.cs" />
+    <Compile Include="Asserts\String.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>String.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Asserts\StringPartial.cs" />
+    <Compile Include="AssertPropertyGenerator.cs" />
     <Compile Include="Deserializers\Collection.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Collection.tt</DependentUpon>
     </Compile>
     <Compile Include="Deserializers\CollectionPartial.cs" />
-    <Compile Include="Deserializers\StringPartial.cs" />
-    <Compile Include="Deserializers\ReferencePartial.cs" />
-    <Compile Include="Deserializers\DatePartial.cs" />
-    <Compile Include="Deserializers\IntegerPartial.cs" />
     <Compile Include="Deserializers\Reference.cs">
-      <DependentUpon>Reference.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.tt</DependentUpon>
     </Compile>
+    <Compile Include="Deserializers\ReferencePartial.cs" />
+    <Compile Include="Deserializers\StringPartial.cs" />
+    <Compile Include="Deserializers\DatePartial.cs" />
+    <Compile Include="Deserializers\IntegerPartial.cs" />
     <Compile Include="Deserializers\Date.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -68,6 +93,7 @@
     </Compile>
     <Compile Include="DeserializePropertyGenerator.cs" />
     <Compile Include="IPropertyVisitor.cs" />
+    <Compile Include="ObjectPropertiesComparer.cs" />
     <Compile Include="PropertyProcessor.cs" />
     <Compile Include="UnitTestsTemplatePartial.cs" />
     <Compile Include="Main.cs" />
@@ -88,13 +114,25 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Deserializers\Collection.tt">
+    <None Include="Asserts\Date.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>Collection.cs</LastGenOutput>
+      <LastGenOutput>Date.cs</LastGenOutput>
     </None>
-    <None Include="Deserializers\Reference.tt">
+    <None Include="Asserts\Integer.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
+      <LastGenOutput>Integer.cs</LastGenOutput>
+    </None>
+    <None Include="Asserts\NullPropertyValue.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>NullPropertyValue.cs</LastGenOutput>
+    </None>
+    <None Include="Asserts\String.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>String.cs</LastGenOutput>
+    </None>
+    <None Include="Deserializers\Collection.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Collection.cs</LastGenOutput>
     </None>
     <None Include="Deserializers\Date.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
@@ -103,6 +141,10 @@
     <None Include="Deserializers\Integer.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>Integer.cs</LastGenOutput>
+    </None>
+    <None Include="Deserializers\Reference.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <None Include="Deserializers\String.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>

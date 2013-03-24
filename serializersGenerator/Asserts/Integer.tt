@@ -1,0 +1,1 @@
+﻿equal(<#=objectName#>.<#=propertyName#>, "<#=value#>");

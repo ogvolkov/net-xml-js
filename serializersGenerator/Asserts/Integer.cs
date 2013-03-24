@@ -7,21 +7,14 @@
 //     the code is regenerated.
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace serializersGenerator
+namespace serializersGenerator.Asserts
 {
-    using System.Xml;
-    using System.Xml.Serialization;
-    using System.IO;
-    using System.Web;
-    using System.Linq;
-    using System.Collections;
-    using System.Collections.Generic;
     using System;
     
     
-    #line 1 "D:\development\net-xml-js\serializersGenerator\UnitTestsTemplate.tt"
+    #line 1 "D:\development\net-xml-js\serializersGenerator\Asserts\Integer.tt"
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "10.0.0.0")]
-    public partial class UnitTestsTemplate : UnitTestsTemplateBase
+    public partial class Integer : IntegerBase
     {
         #region ToString Helpers
         /// <summary>
@@ -82,77 +75,28 @@ namespace serializersGenerator
         public virtual string TransformText()
         {
             this.GenerationEnvironment = null;
-            this.Write("\r\n");
+            this.Write("equal(");
             
-            #line 10 "D:\development\net-xml-js\serializersGenerator\UnitTestsTemplate.tt"
- 
-	var types = _typesInfo.Types;
-
-	foreach (var type in types)
-	{
-		var samples = _sampleDataBuilder.CreateAllSampleInstances(type).ToList(); 
-		
-		for (int i=0; i < samples.Count; i++)
-        {
-	
+            #line 1 "D:\development\net-xml-js\serializersGenerator\Asserts\Integer.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(objectName));
             
             #line default
             #line hidden
-            this.Write("\ttest(\"Deserializing ");
+            this.Write(".");
             
-            #line 20 "D:\development\net-xml-js\serializersGenerator\UnitTestsTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(type.Name));
-            
-            #line default
-            #line hidden
-            this.Write(", sample ");
-            
-            #line 20 "D:\development\net-xml-js\serializersGenerator\UnitTestsTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(i));
+            #line 1 "D:\development\net-xml-js\serializersGenerator\Asserts\Integer.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(propertyName));
             
             #line default
             #line hidden
-            this.Write("\", function() {\r\n\t\tvar xml = \"");
+            this.Write(", \"");
             
-            #line 21 "D:\development\net-xml-js\serializersGenerator\UnitTestsTemplate.tt"
-
-			var instance = samples[i];  
-
-			var serializer = new XmlSerializer(type);
-			var stringWriter = new StringWriter();
-            var escapingWriter = new EscapingTextWriter(stringWriter);
-            XmlWriter xmlWriter = XmlWriter.Create(escapingWriter, new XmlWriterSettings { OmitXmlDeclaration = true });			
-            serializer.Serialize(xmlWriter, instance);
-			
-			Write(stringWriter.ToString());
-		
+            #line 1 "D:\development\net-xml-js\serializersGenerator\Asserts\Integer.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(value));
             
             #line default
             #line hidden
-            this.Write("\";\r\n\r\n\t\tvar result = netXmlSerializer.deserialize");
-            
-            #line 33 "D:\development\net-xml-js\serializersGenerator\UnitTestsTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(type.Name));
-            
-            #line default
-            #line hidden
-            this.Write("(xml);\r\n\t\t");
-            
-            #line 34 "D:\development\net-xml-js\serializersGenerator\UnitTestsTemplate.tt"
- var propertiesComparer = new ObjectPropertiesComparer(WriteLine, types);
-		propertiesComparer.CompareObjectProperties("result", instance, type);
-            
-            #line default
-            #line hidden
-            this.Write("\t\t\r\n\t});\r\n");
-            
-            #line 37 "D:\development\net-xml-js\serializersGenerator\UnitTestsTemplate.tt"
-
-        }
-	}
-            
-            #line default
-            #line hidden
+            this.Write("\");\r\n");
             return this.GenerationEnvironment.ToString();
         }
     }
@@ -164,7 +108,7 @@ namespace serializersGenerator
     /// Base class for this transformation
     /// </summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "10.0.0.0")]
-    public class UnitTestsTemplateBase
+    public class IntegerBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;
