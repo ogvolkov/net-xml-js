@@ -36,15 +36,15 @@ namespace serializersGenerator
             _resultHandler(template.TransformText());
         }
 
-        public void VisitReference(string propertyName, string propertyTypeName)
+        public void VisitReference(string propertyName, Type propertyType)
         {
-            var template = new Reference(propertyName, propertyTypeName);
+            var template = new Reference(propertyName, propertyType.Name);
             _resultHandler(template.TransformText());
         }
 
-        public void VisitCollection(string propertyName, string itemTypeName)
+        public void VisitCollection(string propertyName, Type itemType)
         {
-            var template = new Collection(propertyName, itemTypeName);
+            var template = new Collection(propertyName, itemType.Name);
             _resultHandler(template.TransformText());
         }
     }

@@ -1,4 +1,6 @@
-﻿namespace serializersGenerator
+﻿using System;
+
+namespace serializersGenerator
 {
     public interface IPropertyVisitor
     {
@@ -8,8 +10,8 @@
 
         void VisitDate(string propertyName);
 
-        void VisitReference(string propertyName, string propertyTypeName);
+        void VisitReference(string propertyName, Type propertyType);
 
-        void VisitCollection(string propertyName, string itemTypeName);
+        void VisitCollection(string propertyName, Type itemType);
     }
 }

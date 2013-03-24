@@ -28,11 +28,11 @@ equal(result.Lines[1].Quantity, 42);
 		
 	});
 	test("Deserializing SampleIntDate, sample 0", function() {
-		var xml = "<SampleIntDate xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><Id>42</Id><Date>2013-03-24T20:15:26.8607953+02:00</Date></SampleIntDate>";
+		var xml = "<SampleIntDate xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><Id>42</Id><Date>2013-03-24T20:17:26.3956323+02:00</Date></SampleIntDate>";
 
 		var result = netXmlSerializer.deserializeSampleIntDate(xml);
 		equal(result.Id, 42);
-deepEqual(result.Date, new Date(1364148926860));
+deepEqual(result.Date, new Date(1364149046395));
 		
 	});
 	test("Deserializing ReferenceSubordinate, sample 0", function() {

@@ -30,7 +30,7 @@ namespace serializersGenerator
             }
             else if (_types.Contains(propertyType))
             {
-                _visitor.VisitReference(property.Name, propertyType.Name);
+                _visitor.VisitReference(property.Name, propertyType);
             }
             else
             {
@@ -39,7 +39,7 @@ namespace serializersGenerator
                 if (collectionType != null)
                 {
                     var itemType = collectionType.GetGenericArguments().First();
-                    _visitor.VisitCollection(property.Name, itemType.Name);
+                    _visitor.VisitCollection(property.Name, itemType);
                 }
                 else
                 {

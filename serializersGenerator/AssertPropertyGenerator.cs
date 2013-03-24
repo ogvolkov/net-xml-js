@@ -7,7 +7,7 @@ using serializersGenerator.Asserts;
 
 namespace serializersGenerator
 {
-    class AssertPropertyGenerator/* : IPropertyVisitor*/
+    class AssertPropertyGenerator : IPropertyVisitor
     {
         private readonly Action<string> _resultHandler;
 
