@@ -59,13 +59,9 @@ namespace serializersGenerator
                     }
                     fork++;
 
-                    if ((index & (1<<fork) ) != 0)
+                    if ((index & (1 << fork)) == 0)
                     {
-                        propertyValue = null;
-                    }
-                    else
-                    {
-                        propertyValue = CreateDefaultInstance(propertyType);   
+                        propertyValue = CreateDefaultInstance(propertyType);
                     }                    
                 }
                 else
@@ -94,11 +90,7 @@ namespace serializersGenerator
                             }
 
                             propertyValue = collection;
-                        }
-                        else
-                        {
-                            propertyValue = null;
-                        }
+                        }                        
                     }
                 }
 
