@@ -65,9 +65,8 @@ namespace serializersGenerator
             }            
         }
 
-        public void VisitCollection(string propertyName, Type collectionType)
+        public void VisitCollection(string propertyName, Type itemType)
         {
-            var itemType = collectionType.GetGenericArguments().First();
             var items = _value as IEnumerable;
 
             if (items != null)
