@@ -89,14 +89,14 @@ namespace serializersGenerator.Asserts
             
             #line default
             #line hidden
-            this.Write(", \"");
+            this.Write(", ");
             
             #line 1 "D:\development\net-xml-js\serializersGenerator\Asserts\Integer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(value));
             
             #line default
             #line hidden
-            this.Write("\");\r\n");
+            this.Write(");\r\n");
             return this.GenerationEnvironment.ToString();
         }
     }

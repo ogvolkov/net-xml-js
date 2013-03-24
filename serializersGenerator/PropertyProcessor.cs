@@ -37,9 +37,8 @@ namespace serializersGenerator
                 var collectionType = TypesInfo.TryGetCollectionType(propertyType);
 
                 if (collectionType != null)
-                {
-                    var itemType = collectionType.GetGenericArguments().First();
-                    _visitor.VisitCollection(property.Name, itemType);
+                {                    
+                    _visitor.VisitCollection(property.Name, propertyType, collectionType);
                 }
                 else
                 {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 using serializersGenerator.Deserializers;
 
@@ -42,8 +43,9 @@ namespace serializersGenerator
             _resultHandler(template.TransformText());
         }
 
-        public void VisitCollection(string propertyName, Type itemType)
+        public void VisitCollection(string propertyName, Type propertyType, Type collectionType)
         {
+            var itemType = collectionType.GetGenericArguments().First();
             var template = new Collection(propertyName, itemType.Name);
             _resultHandler(template.TransformText());
         }

@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 
 namespace serializersGenerator
 {
@@ -30,71 +28,16 @@ namespace serializersGenerator
         }
 
         private object CreateInstance(Type type, int index, Action onForkFound)
-        {
-            int fork = -1;
-
+        {            
             var instance = Activator.CreateInstance(type);
+
+            var propertyValueBuilder = new PropertyValueBuilder(index, CreateDefaultInstance, onForkFound);
+            var propertyProcessor = new PropertyProcessor(propertyValueBuilder, _customTypes);
+
             foreach (var property in type.GetProperties())
-            {
-                var propertyType = property.PropertyType;
-
-                object propertyValue = null;
-                if (propertyType == typeof(string))
-                {
-                    propertyValue = "Test";
-                }
-                else if (propertyType == typeof(int))
-                {
-                    propertyValue = 42;
-                }
-                else if (propertyType == typeof(DateTime))
-                {
-                    propertyValue = DateTime.Now;
-                }
-                else if (_customTypes.Contains(propertyType))
-                {
-                    if (index == 0)
-                    {
-                        onForkFound();
-                    }
-                    fork++;
-
-                    if ((index & (1 << fork)) == 0)
-                    {
-                        propertyValue = CreateDefaultInstance(propertyType);
-                    }                    
-                }
-                else
-                {
-                    var collectionType = TypesInfo.TryGetCollectionType(propertyType);
-
-                    if (collectionType != null)
-                    {
-                        if (index == 0)
-                        {
-                            onForkFound();
-                        }
-                        fork++;
-
-                        if ((index & (1 << fork)) != 0)
-                        {
-                            var itemType = collectionType.GetGenericArguments().First();
-                            var addMethod = collectionType.GetMethod("Add");
-
-                            var collection = Activator.CreateInstance(propertyType);
-
-                            for (int i = 0; i < 2; i++)
-                            {
-                                var item = CreateDefaultInstance(itemType);
-                                addMethod.Invoke(collection, new[] { item });
-                            }
-
-                            propertyValue = collection;
-                        }                        
-                    }
-                }
-
-                property.SetValue(instance, propertyValue, null);
+            {                
+                propertyProcessor.Process(property);
+                property.SetValue(instance, propertyValueBuilder.Value, null);
             }
             return instance;
         }

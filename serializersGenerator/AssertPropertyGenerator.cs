@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 using serializersGenerator.Asserts;
 
@@ -64,12 +65,14 @@ namespace serializersGenerator
             }            
         }
 
-        public void VisitCollection(string propertyName, Type itemType)
+        public void VisitCollection(string propertyName, Type propertyType, Type collectionType)
         {
             var items = _value as IEnumerable;
 
             if (items != null)
             {
+                var itemType = collectionType.GetGenericArguments().First();
+
                 int index = 0;
                 foreach (var item in items)
                 {
