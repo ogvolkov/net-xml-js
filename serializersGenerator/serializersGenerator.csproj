@@ -67,6 +67,12 @@
       <DependentUpon>Collection.tt</DependentUpon>
     </Compile>
     <Compile Include="Deserializers\CollectionPartial.cs" />
+    <Compile Include="Deserializers\ObjectPartial.cs" />
+    <Compile Include="Deserializers\Object.cs">
+      <DependentUpon>Object.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Deserializers\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -134,6 +140,10 @@
     <None Include="Deserializers\Collection.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Collection.cs</LastGenOutput>
+    </None>
+    <None Include="Deserializers\Object.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>Object.cs</LastGenOutput>
     </None>
     <None Include="Deserializers\Date.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>

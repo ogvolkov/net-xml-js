@@ -79,6 +79,17 @@ result.Quantity = parseInt(node.getElementsByTagName("Quantity")[0].textContent)
 		function deserializeNodeWithObjectProperty(node) {				
 				var result = {};
 			result.Name = node.getElementsByTagName("Name")[0].textContent;
+var ValueNode = node.getElementsByTagName("Value")[0];
+var ValueNodeType = ValueNode.getAttribute("xsi:type");
+
+switch (ValueNodeType) {
+	case "xsd:string":
+		result.Value = ValueNode.textContent;
+		break;
+	case "xsd:int":
+		result.Value = parseInt(ValueNode.textContent);
+		break;
+}
 			return result;
 		}
 

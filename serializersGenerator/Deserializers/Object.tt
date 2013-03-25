@@ -1,0 +1,11 @@
+﻿var <#=propertyName#>Node = node.getElementsByTagName("<#=propertyName#>")[0];
+var <#=propertyName#>NodeType = <#=propertyName#>Node.getAttribute("xsi:type");
+
+switch (<#=propertyName#>NodeType) {
+	case "xsd:string":
+		result.<#=propertyName#> = <#=propertyName#>Node.textContent;
+		break;
+	case "xsd:int":
+		result.<#=propertyName#> = parseInt(<#=propertyName#>Node.textContent);
+		break;
+}

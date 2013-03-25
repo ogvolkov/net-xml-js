@@ -51,7 +51,9 @@ namespace serializersGenerator
         }
 
         public void VisitObject(string propertyName, Type propertyType)
-        {         
+        {
+            var template = new Deserializers.Object(propertyName);
+            _resultHandler(template.TransformText());
         }
     }
 }
