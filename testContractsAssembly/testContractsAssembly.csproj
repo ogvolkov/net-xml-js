@@ -39,6 +39,7 @@
     <Compile Include="ReferenceSubordinate.cs" />
     <Compile Include="Simple.cs" />
     <Compile Include="SampleIntDate.cs" />
+    <Compile Include="WithObjectProperty.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

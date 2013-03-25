@@ -49,5 +49,9 @@ namespace serializersGenerator
             var template = new Collection(propertyName, itemType.Name);
             _resultHandler(template.TransformText());
         }
+
+        public void VisitObject(string propertyName, Type propertyType)
+        {         
+        }
     }
 }

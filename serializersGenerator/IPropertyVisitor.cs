@@ -13,5 +13,7 @@ namespace serializersGenerator
         void VisitReference(string propertyName, Type propertyType);
 
         void VisitCollection(string propertyName, Type propertyType, Type collectionType);
+
+        void VisitObject(string propertyName, Type propertyType);
     }
 }

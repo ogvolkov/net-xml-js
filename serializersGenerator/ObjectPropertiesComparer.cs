@@ -30,9 +30,9 @@ namespace serializersGenerator
                 else
                 {
                     assertGenerator.Value = null;
-                }                
+                }
 
-                propertyProcessor.Process(property);
+                propertyProcessor.Process(property.Name, property.PropertyType);
             }
         }
     }

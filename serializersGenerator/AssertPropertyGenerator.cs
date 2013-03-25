@@ -17,6 +17,8 @@ namespace serializersGenerator
 
         private readonly ObjectPropertiesComparer _propertiesComparer;
 
+        private readonly IEnumerable<Type> _types; 
+
         public object Value
         {
             set { _value = value; }
@@ -31,6 +33,7 @@ namespace serializersGenerator
 
             _objectName = objectName;
             _resultHandler = resultHandler;
+            _types = allTypes;
             _propertiesComparer = new ObjectPropertiesComparer(resultHandler, allTypes);
         }
 
@@ -86,6 +89,15 @@ namespace serializersGenerator
                 var template = new NullPropertyValue(_objectName, propertyName);
                 _resultHandler(template.TransformText());
             }
+        }
+
+        public void VisitObject(string propertyName, Type propertyType)
+        {
+            var assertGenerator = new AssertPropertyGenerator(_objectName, _resultHandler, _types);
+            assertGenerator.Value = _value;
+            var propertyProcessor = new PropertyProcessor(assertGenerator, _types);
+
+            propertyProcessor.Process(propertyName, _value.GetType());
         }
     }
 }

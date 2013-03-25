@@ -36,12 +36,12 @@ equal(result.Lines[1].Quantity, 49);
 		
 	});
 	test("Deserializing SampleIntDate, sample 0", function() {
-		var xml = "<SampleIntDate xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><Id>50</Id><Date>2013-03-25T00:30:20.2745285+02:00</Date></SampleIntDate>";
+		var xml = "<SampleIntDate xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><Id>50</Id><Date>2013-03-25T09:59:14.2538804+02:00</Date></SampleIntDate>";
 
 		var result = netXmlSerializer.deserializeSampleIntDate(xml);
 		equal(result.Id, 50);
 
-deepEqual(result.Date, new Date(1364164220274));
+deepEqual(result.Date, new Date(1364198354253));
 		
 	});
 	test("Deserializing ReferenceSubordinate, sample 0", function() {
@@ -78,6 +78,23 @@ equal(result.Reference.Name, "Test");
 equal(result.Price, 54);
 
 equal(result.Quantity, 55);
+
+		
+	});
+	test("Deserializing WithObjectProperty, sample 0", function() {
+		var xml = "<WithObjectProperty xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><Name>Test</Name><Value xsi:type=\"xsd:string\">aaa</Value></WithObjectProperty>";
+
+		var result = netXmlSerializer.deserializeWithObjectProperty(xml);
+		equal(result.Name, "Test");
+equal(result.Value, "aaa");
+		
+	});
+	test("Deserializing WithObjectProperty, sample 1", function() {
+		var xml = "<WithObjectProperty xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><Name>Test</Name><Value xsi:type=\"xsd:int\">10</Value></WithObjectProperty>";
+
+		var result = netXmlSerializer.deserializeWithObjectProperty(xml);
+		equal(result.Name, "Test");
+equal(result.Value, 10);
 
 		
 	});

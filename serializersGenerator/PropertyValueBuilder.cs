@@ -91,5 +91,23 @@ namespace serializersGenerator
                 propertyValue = null;
             }
         }
+
+        public void VisitObject(string propertyName, Type propertyType)
+        {
+            if (index == 0)
+            {
+                onForkFound();
+            }
+            fork++;
+
+            if ((index & (1 << fork)) != 0)
+            {
+                propertyValue = 10;
+            }
+            else
+            {
+                propertyValue = "aaa";
+            }
+        }
     }
 }

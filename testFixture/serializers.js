@@ -76,6 +76,12 @@ result.Quantity = parseInt(node.getElementsByTagName("Quantity")[0].textContent)
 			return result;
 		}
 
+		function deserializeNodeWithObjectProperty(node) {				
+				var result = {};
+			result.Name = node.getElementsByTagName("Name")[0].textContent;
+			return result;
+		}
+
 	    return {
 					deserializeSimple: function(xml) {
 						var xmlDoc = parseXml(xml);					
@@ -100,6 +106,10 @@ result.Quantity = parseInt(node.getElementsByTagName("Quantity")[0].textContent)
 					deserializeOrderLine: function(xml) {
 						var xmlDoc = parseXml(xml);					
 						return deserializeNodeOrderLine(xmlDoc);
+					},
+					deserializeWithObjectProperty: function(xml) {
+						var xmlDoc = parseXml(xml);					
+						return deserializeNodeWithObjectProperty(xmlDoc);
 					},
 			}
 })();

@@ -35,8 +35,8 @@ namespace serializersGenerator
             var propertyProcessor = new PropertyProcessor(propertyValueBuilder, _customTypes);
 
             foreach (var property in type.GetProperties())
-            {                
-                propertyProcessor.Process(property);
+            {
+                propertyProcessor.Process(property.Name, property.PropertyType);
                 property.SetValue(instance, propertyValueBuilder.Value, null);
             }
             return instance;

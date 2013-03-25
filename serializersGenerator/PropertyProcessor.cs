@@ -17,20 +17,23 @@ namespace serializersGenerator
             _types = allTypes;
         }
 
-        public void Process(PropertyInfo property)
-        {
-            var propertyType = property.PropertyType;
+        public void Process(string propertyName, Type propertyType)
+        {            
             if (propertyType == typeof(DateTime))
             {
-                _visitor.VisitDate(property.Name);
+                _visitor.VisitDate(propertyName);
             }
             else if (propertyType == typeof(int))
             {
-                _visitor.VisitInteger(property.Name);
+                _visitor.VisitInteger(propertyName);
+            }
+            else if (propertyType == typeof(object))
+            {
+                _visitor.VisitObject(propertyName, propertyType);
             }
             else if (_types.Contains(propertyType))
             {
-                _visitor.VisitReference(property.Name, propertyType);
+                _visitor.VisitReference(propertyName, propertyType);
             }
             else
             {
@@ -38,11 +41,11 @@ namespace serializersGenerator
 
                 if (collectionType != null)
                 {                    
-                    _visitor.VisitCollection(property.Name, propertyType, collectionType);
+                    _visitor.VisitCollection(propertyName, propertyType, collectionType);
                 }
                 else
                 {
-                    _visitor.VisitString(property.Name);
+                    _visitor.VisitString(propertyName);
                 }
             }
         }
