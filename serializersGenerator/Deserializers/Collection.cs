@@ -12,177 +12,120 @@ namespace serializersGenerator.Deserializers
     using System;
     
     
-    #line 1 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
+    #line 1 "D:\work\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "10.0.0.0")]
     public partial class Collection : CollectionBase
     {
-        #region ToString Helpers
-        /// <summary>
-        /// Utility class to produce culture-oriented representation of an object as a string.
-        /// </summary>
-        public class ToStringInstanceHelper
-        {
-            private System.IFormatProvider formatProviderField  = global::System.Globalization.CultureInfo.InvariantCulture;
-            /// <summary>
-            /// Gets or sets format provider to be used by ToStringWithCulture method.
-            /// </summary>
-            public System.IFormatProvider FormatProvider
-            {
-                get
-                {
-                    return this.formatProviderField ;
-                }
-                set
-                {
-                    if ((value != null))
-                    {
-                        this.formatProviderField  = value;
-                    }
-                }
-            }
-            /// <summary>
-            /// This is called from the compile/run appdomain to convert objects within an expression block to a string
-            /// </summary>
-            public string ToStringWithCulture(object objectToConvert)
-            {
-                if ((objectToConvert == null))
-                {
-                    throw new global::System.ArgumentNullException("objectToConvert");
-                }
-                System.Type t = objectToConvert.GetType();
-                System.Reflection.MethodInfo method = t.GetMethod("ToString", new System.Type[] {
-                            typeof(System.IFormatProvider)});
-                if ((method == null))
-                {
-                    return objectToConvert.ToString();
-                }
-                else
-                {
-                    return ((string)(method.Invoke(objectToConvert, new object[] {
-                                this.formatProviderField })));
-                }
-            }
-        }
-        private ToStringInstanceHelper toStringHelperField = new ToStringInstanceHelper();
-        public ToStringInstanceHelper ToStringHelper
-        {
-            get
-            {
-                return this.toStringHelperField;
-            }
-        }
-        #endregion
         public virtual string TransformText()
         {
-            this.GenerationEnvironment = null;
             this.Write("result.");
             
-            #line 1 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
+            #line 1 "D:\work\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propertyName));
             
             #line default
             #line hidden
             this.Write(" = [];\r\nvar _");
             
-            #line 2 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
+            #line 2 "D:\work\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propertyName));
             
             #line default
             #line hidden
             this.Write("CollectionNode = node.getElementsByTagName(\"");
             
-            #line 2 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
+            #line 2 "D:\work\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propertyName));
             
             #line default
             #line hidden
             this.Write("\");\r\nif (_");
             
-            #line 3 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
+            #line 3 "D:\work\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propertyName));
             
             #line default
             #line hidden
             this.Write("CollectionNode != null && _");
             
-            #line 3 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
+            #line 3 "D:\work\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propertyName));
             
             #line default
             #line hidden
             this.Write("CollectionNode.length > 0) {\r\n\tvar _");
             
-            #line 4 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
+            #line 4 "D:\work\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propertyName));
             
             #line default
             #line hidden
             this.Write("Nodes = _");
             
-            #line 4 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
+            #line 4 "D:\work\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propertyName));
             
             #line default
             #line hidden
             this.Write("CollectionNode[0].getElementsByTagName(\"");
             
-            #line 4 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
+            #line 4 "D:\work\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(itemTypeName));
             
             #line default
             #line hidden
             this.Write("\");\r\n\tvar _");
             
-            #line 5 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
+            #line 5 "D:\work\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propertyName));
             
             #line default
             #line hidden
-            this.Write("Item;\r\n\tfor (i = 0; i < _");
+            this.Write("Item;\t\r\n\tfor (i = 0; i < _");
             
-            #line 6 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
+            #line 6 "D:\work\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propertyName));
             
             #line default
             #line hidden
             this.Write("Nodes.length; i++)\r\n\t{\r\n\t\t_");
             
-            #line 8 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
+            #line 8 "D:\work\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propertyName));
             
             #line default
             #line hidden
             this.Write("Item = deserializeNode");
             
-            #line 8 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
+            #line 8 "D:\work\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(itemTypeName));
             
             #line default
             #line hidden
             this.Write("(_");
             
-            #line 8 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
+            #line 8 "D:\work\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propertyName));
             
             #line default
             #line hidden
             this.Write("Nodes[i]);\r\n\t\t\tresult.");
             
-            #line 9 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
+            #line 9 "D:\work\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propertyName));
             
             #line default
             #line hidden
             this.Write(".push(_");
             
-            #line 9 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
+            #line 9 "D:\work\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propertyName));
             
             #line default
             #line hidden
-            this.Write("Item);\r\n\t}\t\t\t\t\t\r\n}\r\nelse{\r\n\tresult.");
+            this.Write("Item);\r\n\t}\t\t\t\t\t\t\r\n}\r\nelse{\r\n\tresult.");
             
-            #line 13 "D:\development\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
+            #line 13 "D:\work\net-xml-js\serializersGenerator\Deserializers\Collection.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propertyName));
             
             #line default
@@ -403,6 +346,62 @@ namespace serializersGenerator.Deserializers
         {
             this.indentLengths.Clear();
             this.currentIndentField = "";
+        }
+        #endregion
+        #region ToString Helpers
+        /// <summary>
+        /// Utility class to produce culture-oriented representation of an object as a string.
+        /// </summary>
+        public class ToStringInstanceHelper
+        {
+            private System.IFormatProvider formatProviderField  = global::System.Globalization.CultureInfo.InvariantCulture;
+            /// <summary>
+            /// Gets or sets format provider to be used by ToStringWithCulture method.
+            /// </summary>
+            public System.IFormatProvider FormatProvider
+            {
+                get
+                {
+                    return this.formatProviderField ;
+                }
+                set
+                {
+                    if ((value != null))
+                    {
+                        this.formatProviderField  = value;
+                    }
+                }
+            }
+            /// <summary>
+            /// This is called from the compile/run appdomain to convert objects within an expression block to a string
+            /// </summary>
+            public string ToStringWithCulture(object objectToConvert)
+            {
+                if ((objectToConvert == null))
+                {
+                    throw new global::System.ArgumentNullException("objectToConvert");
+                }
+                System.Type t = objectToConvert.GetType();
+                System.Reflection.MethodInfo method = t.GetMethod("ToString", new System.Type[] {
+                            typeof(System.IFormatProvider)});
+                if ((method == null))
+                {
+                    return objectToConvert.ToString();
+                }
+                else
+                {
+                    return ((string)(method.Invoke(objectToConvert, new object[] {
+                                this.formatProviderField })));
+                }
+            }
+        }
+        private ToStringInstanceHelper toStringHelperField = new ToStringInstanceHelper();
+        public ToStringInstanceHelper ToStringHelper
+        {
+            get
+            {
+                return this.toStringHelperField;
+            }
         }
         #endregion
     }

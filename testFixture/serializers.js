@@ -23,12 +23,12 @@ result.Lines = [];
 var _LinesCollectionNode = node.getElementsByTagName("Lines");
 if (_LinesCollectionNode != null && _LinesCollectionNode.length > 0) {
 	var _LinesNodes = _LinesCollectionNode[0].getElementsByTagName("OrderLine");
-	var _LinesItem;
+	var _LinesItem;	
 	for (i = 0; i < _LinesNodes.length; i++)
 	{
 		_LinesItem = deserializeNodeOrderLine(_LinesNodes[i]);
 			result.Lines.push(_LinesItem);
-	}					
+	}						
 }
 else{
 	result.Lines = null;

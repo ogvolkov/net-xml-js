@@ -70,11 +70,14 @@ namespace serializersGenerator
 
         public void VisitCollection(string propertyName, Type propertyType, Type collectionType)
         {
-            var items = _value as IEnumerable;
+            var items = _value as IEnumerable<object>;
 
             if (items != null)
             {
                 var itemType = collectionType.GetGenericArguments().First();
+
+                var lengthAssert = string.Format("equal({0}.{1}.length, {2})", _objectName, propertyName, items.Count());
+                _resultHandler(lengthAssert);
 
                 int index = 0;
                 foreach (var item in items)
