@@ -102,6 +102,7 @@
     <Compile Include="ObjectPropertiesComparer.cs" />
     <Compile Include="PropertyProcessor.cs" />
     <Compile Include="PropertyValueBuilder.cs" />
+    <Compile Include="SampleObjectBuildPath.cs" />
     <Compile Include="UnitTestsTemplatePartial.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AssemblyInfo.cs" />

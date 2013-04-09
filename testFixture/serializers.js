@@ -16,12 +16,6 @@ var netXmlSerializer = (function(){
             throw new Error("No XML parser found");
         }
     }();
-		function deserializeNodeSimple(node) {				
-				var result = {};
-			result.Name = node.getElementsByTagName("Name")[0].textContent;
-			return result;
-		}
-
 		function deserializeNodeOrder(node) {				
 				var result = {};
 			result.Id = parseInt(node.getElementsByTagName("Id")[0].textContent);
@@ -42,10 +36,22 @@ else{
 			return result;
 		}
 
-		function deserializeNodeSampleIntDate(node) {				
+		function deserializeNodeSimple(node) {				
+				var result = {};
+			result.Name = node.getElementsByTagName("Name")[0].textContent;
+			return result;
+		}
+
+		function deserializeNodeSelfRef(node) {				
 				var result = {};
 			result.Id = parseInt(node.getElementsByTagName("Id")[0].textContent);
-result.Date = new Date(Date.parse(node.getElementsByTagName("Date")[0].textContent));
+var _ReferenceNodes = node.getElementsByTagName("Reference");
+if (_ReferenceNodes && _ReferenceNodes.length > 0) {
+	result.Reference = deserializeNodeSelfRef(_ReferenceNodes[0]);
+}
+else{
+	result.Reference = null;
+}
 			return result;
 		}
 
@@ -53,6 +59,13 @@ result.Date = new Date(Date.parse(node.getElementsByTagName("Date")[0].textConte
 				var result = {};
 			result.Id = parseInt(node.getElementsByTagName("Id")[0].textContent);
 result.Name = node.getElementsByTagName("Name")[0].textContent;
+			return result;
+		}
+
+		function deserializeNodeSampleIntDate(node) {				
+				var result = {};
+			result.Id = parseInt(node.getElementsByTagName("Id")[0].textContent);
+result.Date = new Date(Date.parse(node.getElementsByTagName("Date")[0].textContent));
 			return result;
 		}
 
@@ -65,14 +78,6 @@ if (_ReferenceNodes && _ReferenceNodes.length > 0) {
 else{
 	result.Reference = null;
 }
-			return result;
-		}
-
-		function deserializeNodeOrderLine(node) {				
-				var result = {};
-			result.Id = parseInt(node.getElementsByTagName("Id")[0].textContent);
-result.Price = parseInt(node.getElementsByTagName("Price")[0].textContent);
-result.Quantity = parseInt(node.getElementsByTagName("Quantity")[0].textContent);
 			return result;
 		}
 
@@ -93,34 +98,46 @@ switch (ValueNodeType) {
 			return result;
 		}
 
+		function deserializeNodeOrderLine(node) {				
+				var result = {};
+			result.Id = parseInt(node.getElementsByTagName("Id")[0].textContent);
+result.Price = parseInt(node.getElementsByTagName("Price")[0].textContent);
+result.Quantity = parseInt(node.getElementsByTagName("Quantity")[0].textContent);
+			return result;
+		}
+
 	    return {
-					deserializeSimple: function(xml) {
-						var xmlDoc = parseXml(xml);					
-						return deserializeNodeSimple(xmlDoc);
-					},
 					deserializeOrder: function(xml) {
 						var xmlDoc = parseXml(xml);					
 						return deserializeNodeOrder(xmlDoc);
 					},
-					deserializeSampleIntDate: function(xml) {
+					deserializeSimple: function(xml) {
 						var xmlDoc = parseXml(xml);					
-						return deserializeNodeSampleIntDate(xmlDoc);
+						return deserializeNodeSimple(xmlDoc);
+					},
+					deserializeSelfRef: function(xml) {
+						var xmlDoc = parseXml(xml);					
+						return deserializeNodeSelfRef(xmlDoc);
 					},
 					deserializeReferenceSubordinate: function(xml) {
 						var xmlDoc = parseXml(xml);					
 						return deserializeNodeReferenceSubordinate(xmlDoc);
 					},
+					deserializeSampleIntDate: function(xml) {
+						var xmlDoc = parseXml(xml);					
+						return deserializeNodeSampleIntDate(xmlDoc);
+					},
 					deserializeReferenceMain: function(xml) {
 						var xmlDoc = parseXml(xml);					
 						return deserializeNodeReferenceMain(xmlDoc);
 					},
-					deserializeOrderLine: function(xml) {
-						var xmlDoc = parseXml(xml);					
-						return deserializeNodeOrderLine(xmlDoc);
-					},
 					deserializeWithObjectProperty: function(xml) {
 						var xmlDoc = parseXml(xml);					
 						return deserializeNodeWithObjectProperty(xmlDoc);
+					},
+					deserializeOrderLine: function(xml) {
+						var xmlDoc = parseXml(xml);					
+						return deserializeNodeOrderLine(xmlDoc);
 					},
 			}
 })();

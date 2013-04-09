@@ -37,6 +37,7 @@
     <Compile Include="OrderLine.cs" />
     <Compile Include="ReferenceMain.cs" />
     <Compile Include="ReferenceSubordinate.cs" />
+    <Compile Include="SelfRef.cs" />
     <Compile Include="Simple.cs" />
     <Compile Include="SampleIntDate.cs" />
     <Compile Include="WithObjectProperty.cs" />

@@ -20,13 +20,16 @@ namespace serializersGenerator
             get { return propertyValue; }            
         }
 
-        private Func<Type, object> _defaultInstanceFactory;
+        private ObjectBuildPath _buildPath;
 
-        public PropertyValueBuilder(int index, Func<Type, object> instanceFactory, Action forkHandler)
+        private Func<Type, ObjectBuildPath, object> _defaultInstanceFactory;
+
+        public PropertyValueBuilder(int index, Func<Type, ObjectBuildPath, object> instanceFactory, Action forkHandler, ObjectBuildPath buildPath)
         {
             this.index = index;
             fork = -1;
             _defaultInstanceFactory = instanceFactory;
+            _buildPath = buildPath;
             onForkFound = forkHandler;
         }       
 
@@ -55,7 +58,15 @@ namespace serializersGenerator
 
             if ((index & (1 << fork)) == 0)
             {
-                propertyValue = _defaultInstanceFactory(propertyType);
+                if (_buildPath.Count(propertyType) > 1)
+                {
+                    // avoid stack overflow due to circle in object creation process
+                    propertyValue = null;
+                }
+                else
+                {
+                    propertyValue = _defaultInstanceFactory(propertyType, _buildPath.With(propertyType));
+                }
             }
             else
             {
@@ -80,7 +91,16 @@ namespace serializersGenerator
                 var itemType = collectionType.GetGenericArguments().First();
                 for (int i = 0; i < 2; i++)
                 {
-                    var item = _defaultInstanceFactory(itemType);
+                    object item;
+                    if (_buildPath.Count(propertyType) > 1)
+                    {
+                        // avoid stack overflow due to circle in object creation process
+                        item = null;
+                    }
+                    else
+                    {
+                        item = _defaultInstanceFactory(itemType, _buildPath.With(itemType));
+                    }
                     addMethod.Invoke(collection, new[] { item });
                 }
 
