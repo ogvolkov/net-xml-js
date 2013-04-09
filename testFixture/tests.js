@@ -37,6 +37,13 @@ equal(result.Lines[1].Quantity, 49);
 		
 	});
 	test("Deserializing WithEnumProperty, sample 0", function() {
+		var xml = "<WithEnumProperty xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><Selector>Wrong</Selector></WithEnumProperty>";
+
+		var result = netXmlSerializer.deserializeWithEnumProperty(xml);
+		equal(result.Selector, TestEnum.Wrong);
+		
+	});
+	test("Deserializing WithEnumProperty, sample 1", function() {
 		var xml = "<WithEnumProperty xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><Selector>Right</Selector></WithEnumProperty>";
 
 		var result = netXmlSerializer.deserializeWithEnumProperty(xml);
@@ -73,12 +80,12 @@ equal(result.Name, "Test");
 		
 	});
 	test("Deserializing SampleIntDate, sample 0", function() {
-		var xml = "<SampleIntDate xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><Id>54</Id><Date>2013-04-09T17:28:23.466932+03:00</Date></SampleIntDate>";
+		var xml = "<SampleIntDate xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><Id>54</Id><Date>2013-04-09T17:52:31.3487461+03:00</Date></SampleIntDate>";
 
 		var result = netXmlSerializer.deserializeSampleIntDate(xml);
 		equal(result.Id, 54);
 
-deepEqual(result.Date, new Date(1365517703466));
+deepEqual(result.Date, new Date(1365519151348));
 		
 	});
 	test("Deserializing ReferenceMain, sample 0", function() {

@@ -114,5 +114,9 @@ namespace serializersGenerator
             var template = new NullableInteger(_objectName, propertyName, _value);
             _resultHandler(template.TransformText());
         }
+
+        public void VisitUnsupported(string propertyName, Type propertyType)
+        {
+        }
     }
 }

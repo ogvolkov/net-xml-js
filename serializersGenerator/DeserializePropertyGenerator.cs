@@ -67,5 +67,10 @@ namespace serializersGenerator
             var template = new NullableInteger(propertyName);
             _resultHandler(template.TransformText());
         }
+
+        public void VisitUnsupported(string propertyName, Type propertyType)
+        {
+            Console.WriteLine(string.Format("Unsupported type {0}", propertyType));                    
+        }
     }
 }

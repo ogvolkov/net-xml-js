@@ -57,7 +57,7 @@ namespace serializersGenerator
                 }
                 else
                 {
-                    Console.WriteLine(String.Format("Unsupported type {0}", propertyType));
+                    _visitor.VisitUnsupported(propertyName, propertyType);                    
                 }
             }            
         }

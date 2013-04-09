@@ -86,24 +86,34 @@ namespace serializersGenerator
             {                
                 var addMethod = collectionType.GetMethod("Add");
 
-                var collection = Activator.CreateInstance(propertyType);
+                object collection = null;
 
-                var itemType = collectionType.GetGenericArguments().First();
-                for (int i = 0; i < 2; i++)
+                try
                 {
-                    object item;
-                    if (_buildPath.Count(propertyType) > 1)
-                    {
-                        // avoid stack overflow due to circle in object creation process
-                        item = null;
-                    }
-                    else
-                    {
-                        item = _defaultInstanceFactory(itemType, _buildPath.With(itemType));
-                    }
-                    addMethod.Invoke(collection, new[] { item });
-                }
+                    collection = Activator.CreateInstance(propertyType);
 
+                    var itemType = collectionType.GetGenericArguments().First();
+                    for (int i = 0; i < 2; i++)
+                    {
+                        object item;
+                        if (_buildPath.Count(propertyType) > 1)
+                        {
+                            // avoid stack overflow due to circle in object creation process
+                            item = null;
+                        }
+                        else
+                        {
+                            item = _defaultInstanceFactory(itemType, _buildPath.With(itemType));
+                        }
+                        addMethod.Invoke(collection, new[] { item });
+                    }
+
+                }
+                catch (Exception exception)
+                {
+                    Console.WriteLine("Cannot instantiate collection of type {0}, exception {1}", propertyType, exception);
+                }
+               
                 propertyValue = collection;
             }
             else
@@ -132,7 +142,25 @@ namespace serializersGenerator
 
         public void VisitEnum(string propertyName, Type propertyType)
         {
-            // use default
+            var enumValues = Enum.GetValues(propertyType);
+                        
+            if (index == 0)
+            {
+                onForkFound();
+            }
+            fork++;
+
+            int valueIndex = 0;
+            if ((index & (1 << fork)) != 0)
+            {
+                valueIndex = 0;
+            }
+            else
+            {
+                valueIndex = (enumValues.Length > 1) ? 1 : 0;
+            }
+
+            propertyValue = enumValues.GetValue(valueIndex);
         }
 
         public void VisitNullableInteger(string propertyName)
@@ -151,6 +179,11 @@ namespace serializersGenerator
             {
                 propertyValue = null;
             }
+        }
+
+        public void VisitUnsupported(string propertyName, Type propertyType)
+        {
+            propertyValue = null;
         }
     }
 }

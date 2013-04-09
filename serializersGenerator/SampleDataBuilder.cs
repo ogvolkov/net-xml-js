@@ -5,9 +5,9 @@ namespace serializersGenerator
 {
     public class SampleDataBuilder
     {
-        private readonly ICollection<Type> _customTypes;
+        private readonly IEnumerable<Type> _customTypes;
 
-        public SampleDataBuilder(ICollection<Type> customTypes)
+        public SampleDataBuilder(IEnumerable<Type> customTypes)
         {
             _customTypes = customTypes;
         }
@@ -30,14 +30,25 @@ namespace serializersGenerator
         }
 
         private object CreateInstance(Type type, int index, Action onForkFound, ObjectBuildPath buildPath)
-        {            
-            var instance = Activator.CreateInstance(type);
+        {
+            object instance = null;
+
+            try
+            {
+                instance = Activator.CreateInstance(type);
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine("Cannot instantiate type {0}, exception {1}", type, exception);
+            }
 
             var propertyValueBuilder = new PropertyValueBuilder(index, CreateDefaultInstance, onForkFound, buildPath);
             var propertyProcessor = new PropertyProcessor(propertyValueBuilder, _customTypes);
 
             foreach (var property in type.GetProperties())
             {
+                if (!property.CanWrite) continue;
+
                 propertyProcessor.Process(property.Name, property.PropertyType);
                 property.SetValue(instance, propertyValueBuilder.Value, null);
             }

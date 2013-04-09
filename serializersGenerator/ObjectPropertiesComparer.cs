@@ -23,6 +23,8 @@ namespace serializersGenerator
 
             foreach (var property in type.GetProperties())
             {
+                if (!property.CanWrite) continue;
+
                 if (instance != null)
                 {
                     assertGenerator.Value = property.GetValue(instance, null);
