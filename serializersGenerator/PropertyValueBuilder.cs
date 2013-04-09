@@ -129,5 +129,9 @@ namespace serializersGenerator
                 propertyValue = "aaa";
             }
         }
+
+        public void VisitEnum(string propertyName, Type propertyType)
+        {
+        }
     }
 }

@@ -1,0 +1,1 @@
+..\serializersGenerator\bin\Debug\serializersGenerator.exe D:\work\newdayatwork\src\trunk\NDAW\NDAW.Core\bin\Debug\NDAW.ApiDataContract.dll

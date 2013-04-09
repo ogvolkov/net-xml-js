@@ -40,6 +40,8 @@
     <Compile Include="SelfRef.cs" />
     <Compile Include="Simple.cs" />
     <Compile Include="SampleIntDate.cs" />
+    <Compile Include="TestEnum.cs" />
+    <Compile Include="WithEnumProperty.cs" />
     <Compile Include="WithObjectProperty.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

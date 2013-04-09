@@ -31,6 +31,14 @@ namespace serializersGenerator
             {
                 _visitor.VisitObject(propertyName, propertyType);
             }
+            else if (propertyType == typeof(string))
+            {
+                _visitor.VisitString(propertyName);
+            }
+            else if (propertyType.IsEnum)
+            {
+                _visitor.VisitEnum(propertyName, propertyType);
+            }
             else if (_types.Contains(propertyType))
             {
                 _visitor.VisitReference(propertyName, propertyType);
@@ -40,14 +48,14 @@ namespace serializersGenerator
                 var collectionType = TypesInfo.TryGetCollectionType(propertyType);
 
                 if (collectionType != null)
-                {                    
+                {
                     _visitor.VisitCollection(propertyName, propertyType, collectionType);
                 }
                 else
                 {
-                    _visitor.VisitString(propertyName);
+                    Console.WriteLine(String.Format("Unsupported type {0}", propertyType));
                 }
-            }
+            }            
         }
     }
 }

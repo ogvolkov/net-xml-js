@@ -36,6 +36,12 @@
     <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Asserts\EnumPartial.cs" />
+    <Compile Include="Asserts\Enum.cs">
+      <DependentUpon>Enum.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Asserts\DatePartial.cs" />
     <Compile Include="Asserts\Date.cs">
       <AutoGen>True</AutoGen>
@@ -67,6 +73,12 @@
       <DependentUpon>Collection.tt</DependentUpon>
     </Compile>
     <Compile Include="Deserializers\CollectionPartial.cs" />
+    <Compile Include="Deserializers\EnumPartial.cs" />
+    <Compile Include="Deserializers\Enum.cs">
+      <DependentUpon>Enum.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Deserializers\ObjectPartial.cs" />
     <Compile Include="Deserializers\Object.cs">
       <DependentUpon>Object.tt</DependentUpon>
@@ -122,6 +134,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Asserts\Enum.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>Enum.cs</LastGenOutput>
+    </None>
     <None Include="Asserts\Date.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>Date.cs</LastGenOutput>
@@ -141,6 +157,10 @@
     <None Include="Deserializers\Collection.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>Collection.cs</LastGenOutput>
+    </None>
+    <None Include="Deserializers\Enum.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>Enum.cs</LastGenOutput>
     </None>
     <None Include="Deserializers\Object.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>

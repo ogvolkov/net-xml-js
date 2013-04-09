@@ -17,10 +17,12 @@ namespace serializersGenerator
 				using (var codeWriter = new StreamWriter("serializers.js"))
 				{										
 				    var typesInfo = new TypesInfo();
-				    var types = assembly.GetTypes();
+                    var types = assembly.GetTypes();
 				
 					foreach (var type in types)
 					{
+                        if (type.IsInterface || type.IsAbstract) continue;
+
 						Console.WriteLine("Processing type {0}", type.Name);						
 					    typesInfo.AddType(type);
 					}
