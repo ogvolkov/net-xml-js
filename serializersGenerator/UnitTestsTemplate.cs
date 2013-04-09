@@ -90,6 +90,8 @@ namespace serializersGenerator
 
 	foreach (var type in types)
 	{
+        if (type.IsInterface || type.IsAbstract) continue;
+
 		var samples = _sampleDataBuilder.CreateAllSampleInstances(type).ToList(); 
 		
 		for (int i=0; i < samples.Count; i++)
