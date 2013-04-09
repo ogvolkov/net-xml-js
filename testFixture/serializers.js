@@ -42,6 +42,12 @@ else{
 			return result;
 		}
 
+		function deserializeNodeWithEnumProperty(node) {				
+				var result = {};
+			result.Selector = TestEnum[node.getElementsByTagName("Selector")[0].textContent];
+			return result;
+		}
+
 		function deserializeNodeSelfRef(node) {				
 				var result = {};
 			result.Id = parseInt(node.getElementsByTagName("Id")[0].textContent);
@@ -106,17 +112,6 @@ result.Quantity = parseInt(node.getElementsByTagName("Quantity")[0].textContent)
 			return result;
 		}
 
-		function deserializeNodeTestEnum(node) {				
-				var result = {};
-						return result;
-		}
-
-		function deserializeNodeWithEnumProperty(node) {				
-				var result = {};
-			result.Selector = node.getElementsByTagName("Selector")[0].textContent;
-			return result;
-		}
-
 	    return {
 					deserializeOrder: function(xml) {
 						var xmlDoc = parseXml(xml);					
@@ -125,6 +120,10 @@ result.Quantity = parseInt(node.getElementsByTagName("Quantity")[0].textContent)
 					deserializeSimple: function(xml) {
 						var xmlDoc = parseXml(xml);					
 						return deserializeNodeSimple(xmlDoc);
+					},
+					deserializeWithEnumProperty: function(xml) {
+						var xmlDoc = parseXml(xml);					
+						return deserializeNodeWithEnumProperty(xmlDoc);
 					},
 					deserializeSelfRef: function(xml) {
 						var xmlDoc = parseXml(xml);					
@@ -149,14 +148,6 @@ result.Quantity = parseInt(node.getElementsByTagName("Quantity")[0].textContent)
 					deserializeOrderLine: function(xml) {
 						var xmlDoc = parseXml(xml);					
 						return deserializeNodeOrderLine(xmlDoc);
-					},
-					deserializeTestEnum: function(xml) {
-						var xmlDoc = parseXml(xml);					
-						return deserializeNodeTestEnum(xmlDoc);
-					},
-					deserializeWithEnumProperty: function(xml) {
-						var xmlDoc = parseXml(xml);					
-						return deserializeNodeWithEnumProperty(xmlDoc);
 					},
 			}
 })();

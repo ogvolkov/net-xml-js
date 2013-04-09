@@ -1,1 +1,1 @@
-﻿result.<#=propertyName#> = node.getElementsByTagName("<#=propertyName#>")[0].textContent;
+﻿result.<#=propertyName#> = <#=enumName#>[node.getElementsByTagName("<#=propertyName#>")[0].textContent];

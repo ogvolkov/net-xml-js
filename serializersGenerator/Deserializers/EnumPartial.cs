@@ -4,9 +4,12 @@
     {
         private readonly string propertyName;
 
-        public Enum(string propertyName)
+        private readonly string enumName;
+
+        public Enum(string propertyName, string enumName)
         {
             this.propertyName = propertyName;
+            this.enumName = enumName;
         }
     }
 }

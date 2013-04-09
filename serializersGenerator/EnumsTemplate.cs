@@ -7,46 +7,76 @@
 //     the code is regenerated.
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace serializersGenerator.Asserts
+namespace serializersGenerator
 {
     using System;
     
     
-    #line 1 "D:\work\net-xml-js\serializersGenerator\Asserts\Enum.tt"
+    #line 1 "D:\work\net-xml-js\serializersGenerator\EnumsTemplate.tt"
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "10.0.0.0")]
-    public partial class Enum : EnumBase
+    public partial class EnumsTemplate : EnumsTemplateBase
     {
         public virtual string TransformText()
         {
-            this.Write("equal(");
             
-            #line 1 "D:\work\net-xml-js\serializersGenerator\Asserts\Enum.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(objectName));
-            
-            #line default
-            #line hidden
-            this.Write(".");
-            
-            #line 1 "D:\work\net-xml-js\serializersGenerator\Asserts\Enum.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(propertyName));
+            #line 1 "D:\work\net-xml-js\serializersGenerator\EnumsTemplate.tt"
+
+	foreach (var enumType in enumTypes)
+	{
+		
             
             #line default
             #line hidden
-            this.Write(", ");
+            this.Write("\t\t");
             
-            #line 1 "D:\work\net-xml-js\serializersGenerator\Asserts\Enum.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(enumName));
-            
-            #line default
-            #line hidden
-            this.Write(".");
-            
-            #line 1 "D:\work\net-xml-js\serializersGenerator\Asserts\Enum.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(value));
+            #line 5 "D:\work\net-xml-js\serializersGenerator\EnumsTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(enumType.Name));
             
             #line default
             #line hidden
-            this.Write(");");
+            this.Write(" = {\r\n\t\t\t");
+            
+            #line 6 "D:\work\net-xml-js\serializersGenerator\EnumsTemplate.tt"
+
+				foreach (var value in Enum.GetValues(enumType))
+				{
+					var name = Enum.GetName(enumType, value);
+					
+            
+            #line default
+            #line hidden
+            this.Write("\t\t\t\t\t");
+            
+            #line 11 "D:\work\net-xml-js\serializersGenerator\EnumsTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(name));
+            
+            #line default
+            #line hidden
+            this.Write(": ");
+            
+            #line 11 "D:\work\net-xml-js\serializersGenerator\EnumsTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture((int)value));
+            
+            #line default
+            #line hidden
+            this.Write(",\r\n\t\t\t\t\t");
+            
+            #line 12 "D:\work\net-xml-js\serializersGenerator\EnumsTemplate.tt"
+
+				}
+			
+            
+            #line default
+            #line hidden
+            this.Write("\t\t};\r\n\t\t");
+            
+            #line 16 "D:\work\net-xml-js\serializersGenerator\EnumsTemplate.tt"
+
+	}
+
+            
+            #line default
+            #line hidden
             return this.GenerationEnvironment.ToString();
         }
     }
@@ -58,7 +88,7 @@ namespace serializersGenerator.Asserts
     /// Base class for this transformation
     /// </summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "10.0.0.0")]
-    public class EnumBase
+    public class EnumsTemplateBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

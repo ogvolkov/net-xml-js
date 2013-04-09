@@ -58,7 +58,7 @@ namespace serializersGenerator
 
         public void VisitEnum(string propertyName, Type propertyType)
         {
-            var template = new Deserializers.Enum(propertyName);
+            var template = new Deserializers.Enum(propertyName, propertyType.Name);
             _resultHandler(template.TransformText());
         }
     }

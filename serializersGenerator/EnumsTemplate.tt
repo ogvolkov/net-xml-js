@@ -1,0 +1,18 @@
+﻿<#
+	foreach (var enumType in enumTypes)
+	{
+		#>
+		<#=enumType.Name#> = {
+			<#
+				foreach (var value in Enum.GetValues(enumType))
+				{
+					var name = Enum.GetName(enumType, value);
+					#>
+					<#=name#>: <#=(int)value#>,
+					<#
+				}
+			#>
+		};
+		<#
+	}
+#>

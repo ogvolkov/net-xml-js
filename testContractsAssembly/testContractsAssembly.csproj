@@ -32,6 +32,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnotherEnum.cs" />
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="OrderLine.cs" />

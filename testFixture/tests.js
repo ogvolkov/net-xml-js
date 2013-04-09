@@ -36,6 +36,13 @@ equal(result.Lines[1].Quantity, 49);
 		equal(result.Name, "Test");
 		
 	});
+	test("Deserializing WithEnumProperty, sample 0", function() {
+		var xml = "<WithEnumProperty xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><Selector>Wrong</Selector></WithEnumProperty>";
+
+		var result = netXmlSerializer.deserializeWithEnumProperty(xml);
+		equal(result.Selector, TestEnum.Wrong);
+		
+	});
 	test("Deserializing SelfRef, sample 0", function() {
 		var xml = "<SelfRef xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><Id>50</Id><Reference><Id>51</Id></Reference></SelfRef>";
 
@@ -66,12 +73,12 @@ equal(result.Name, "Test");
 		
 	});
 	test("Deserializing SampleIntDate, sample 0", function() {
-		var xml = "<SampleIntDate xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><Id>54</Id><Date>2013-04-09T16:22:02.9032568+03:00</Date></SampleIntDate>";
+		var xml = "<SampleIntDate xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><Id>54</Id><Date>2013-04-09T16:53:28.6551156+03:00</Date></SampleIntDate>";
 
 		var result = netXmlSerializer.deserializeSampleIntDate(xml);
 		equal(result.Id, 54);
 
-deepEqual(result.Date, new Date(1365513722903));
+deepEqual(result.Date, new Date(1365515608655));
 		
 	});
 	test("Deserializing ReferenceMain, sample 0", function() {
@@ -117,18 +124,5 @@ equal(result.Price, 57);
 
 equal(result.Quantity, 58);
 
-		
-	});
-	test("Deserializing TestEnum, sample 0", function() {
-		var xml = "<TestEnum>Right</TestEnum>";
-
-		var result = netXmlSerializer.deserializeTestEnum(xml);
-				
-	});
-	test("Deserializing WithEnumProperty, sample 0", function() {
-		var xml = "<WithEnumProperty xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><Selector>Right</Selector></WithEnumProperty>";
-
-		var result = netXmlSerializer.deserializeWithEnumProperty(xml);
-		equal(result.Selector, "Right");
 		
 	});

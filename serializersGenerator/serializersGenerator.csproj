@@ -67,6 +67,12 @@
     </Compile>
     <Compile Include="Asserts\StringPartial.cs" />
     <Compile Include="AssertPropertyGenerator.cs" />
+    <Compile Include="EnumsTemplatePartial.cs" />
+    <Compile Include="EnumsTemplate.cs">
+      <DependentUpon>EnumsTemplate.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Deserializers\Collection.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -153,6 +159,10 @@
     <None Include="Asserts\String.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>String.cs</LastGenOutput>
+    </None>
+    <None Include="EnumsTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>EnumsTemplate.cs</LastGenOutput>
     </None>
     <None Include="Deserializers\Collection.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>

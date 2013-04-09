@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Reflection;
+using System.Linq;
 
 namespace serializersGenerator
 {
@@ -14,14 +15,14 @@ namespace serializersGenerator
 				var assembly = Assembly.LoadFrom(assemblyPath);
 
 				using (var unitTestsWriter = new StreamWriter("tests.js"))
-				using (var codeWriter = new StreamWriter("serializers.js"))
+				using (var serializersWriter = new StreamWriter("serializers.js"))                
 				{										
 				    var typesInfo = new TypesInfo();
                     var types = assembly.GetTypes();
 				
 					foreach (var type in types)
 					{
-                        if (type.IsInterface || type.IsAbstract) continue;
+                        if (type.IsInterface || type.IsAbstract || type.IsEnum) continue;
 
 						Console.WriteLine("Processing type {0}", type.Name);						
 					    typesInfo.AddType(type);
@@ -29,11 +30,19 @@ namespace serializersGenerator
 
                     var serializersTemplate = new SerializersTemplate(typesInfo);
 				    var text = serializersTemplate.TransformText();
-                    codeWriter.Write(text);
+                    serializersWriter.Write(text);                    
 
 				    var unitTestsTemplate = new UnitTestsTemplate(typesInfo, new SampleDataBuilder(types));
 				    text = unitTestsTemplate.TransformText();
                     unitTestsWriter.Write(text);
+
+                    using (var enumWriter = new StreamWriter("enums.js"))
+                    {
+                        var enumTypes = types.Where(t => t.IsEnum);
+                        var enumsTemplate = new EnumsTemplate(enumTypes);
+                        text = enumsTemplate.TransformText();
+                        enumWriter.Write(text);
+                    }
 				}
 			}
 			else

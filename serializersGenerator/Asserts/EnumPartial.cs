@@ -10,11 +10,14 @@ namespace serializersGenerator.Asserts
 
         private readonly string value;
 
-        public Enum(string objectName, string propertyName, object value)
+        private readonly string enumName;
+
+        public Enum(string objectName, string propertyName, string enumName, object value)
         {
             this.objectName = objectName;
             this.propertyName = propertyName;
-            this.value = HttpUtility.JavaScriptStringEncode((string)value.ToString());
+            this.value = value.ToString();
+            this.enumName = enumName;
         }
     }
 }

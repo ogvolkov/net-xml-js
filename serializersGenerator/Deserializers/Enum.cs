@@ -25,14 +25,21 @@ namespace serializersGenerator.Deserializers
             
             #line default
             #line hidden
-            this.Write(" = node.getElementsByTagName(\"");
+            this.Write(" = ");
+            
+            #line 1 "D:\work\net-xml-js\serializersGenerator\Deserializers\Enum.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(enumName));
+            
+            #line default
+            #line hidden
+            this.Write("[node.getElementsByTagName(\"");
             
             #line 1 "D:\work\net-xml-js\serializersGenerator\Deserializers\Enum.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propertyName));
             
             #line default
             #line hidden
-            this.Write("\")[0].textContent;");
+            this.Write("\")[0].textContent];");
             return this.GenerationEnvironment.ToString();
         }
     }

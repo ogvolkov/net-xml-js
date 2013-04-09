@@ -105,7 +105,7 @@ namespace serializersGenerator
 
         public void VisitEnum(string propertyName, Type propertyType)
         {
-            var template = new Asserts.Enum(_objectName, propertyName, _value);
+            var template = new Asserts.Enum(_objectName, propertyName, propertyType.Name, _value);
             _resultHandler(template.TransformText());
         }
     }
