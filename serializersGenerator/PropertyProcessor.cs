@@ -27,6 +27,10 @@ namespace serializersGenerator
             {
                 _visitor.VisitInteger(propertyName);
             }
+            else if (propertyType == typeof(int?))
+            {
+                _visitor.VisitNullableInteger(propertyName);
+            }
             else if (propertyType == typeof(object))
             {
                 _visitor.VisitObject(propertyName, propertyType);

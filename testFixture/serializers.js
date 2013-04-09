@@ -112,6 +112,18 @@ result.Quantity = parseInt(node.getElementsByTagName("Quantity")[0].textContent)
 			return result;
 		}
 
+		function deserializeNodeNullableIntProperty(node) {				
+				var result = {};
+			var IntNodeValue = node.getElementsByTagName("Int")[0].textContent;
+if (IntNodeValue){
+	result.Int = parseInt(IntNodeValue);
+}
+else {
+	result.Int = null;
+}
+			return result;
+		}
+
 	    return {
 					deserializeOrder: function(xml) {
 						var xmlDoc = parseXml(xml);					
@@ -148,6 +160,10 @@ result.Quantity = parseInt(node.getElementsByTagName("Quantity")[0].textContent)
 					deserializeOrderLine: function(xml) {
 						var xmlDoc = parseXml(xml);					
 						return deserializeNodeOrderLine(xmlDoc);
+					},
+					deserializeNullableIntProperty: function(xml) {
+						var xmlDoc = parseXml(xml);					
+						return deserializeNodeNullableIntProperty(xmlDoc);
 					},
 			}
 })();

@@ -34,6 +34,7 @@
   <ItemGroup>
     <Compile Include="AnotherEnum.cs" />
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="NullableIntProperty.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="OrderLine.cs" />
     <Compile Include="ReferenceMain.cs" />

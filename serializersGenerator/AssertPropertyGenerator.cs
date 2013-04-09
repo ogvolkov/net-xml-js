@@ -108,5 +108,11 @@ namespace serializersGenerator
             var template = new Asserts.Enum(_objectName, propertyName, propertyType.Name, _value);
             _resultHandler(template.TransformText());
         }
+
+        public void VisitNullableInteger(string propertyName)
+        {
+            var template = new NullableInteger(_objectName, propertyName, _value);
+            _resultHandler(template.TransformText());
+        }
     }
 }

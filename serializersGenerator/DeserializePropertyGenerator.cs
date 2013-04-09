@@ -61,5 +61,11 @@ namespace serializersGenerator
             var template = new Deserializers.Enum(propertyName, propertyType.Name);
             _resultHandler(template.TransformText());
         }
+
+        public void VisitNullableInteger(string propertyName)
+        {
+            var template = new NullableInteger(propertyName);
+            _resultHandler(template.TransformText());
+        }
     }
 }

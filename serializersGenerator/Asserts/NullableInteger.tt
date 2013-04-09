@@ -1,0 +1,13 @@
+﻿<#
+if (value != null)
+{
+	#>
+	equal(<#=objectName#>.<#=propertyName#>, <#=value#>);
+	<#
+} else
+{
+	#>
+	equal(<#=objectName#>.<#=propertyName#>, null);
+	<#
+}
+#>

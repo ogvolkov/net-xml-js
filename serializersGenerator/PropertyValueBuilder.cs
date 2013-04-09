@@ -132,6 +132,25 @@ namespace serializersGenerator
 
         public void VisitEnum(string propertyName, Type propertyType)
         {
+            // use default
+        }
+
+        public void VisitNullableInteger(string propertyName)
+        {
+            if (index == 0)
+            {
+                onForkFound();
+            }
+            fork++;
+
+            if ((index & (1 << fork)) != 0)
+            {
+                propertyValue = 256;
+            }
+            else
+            {
+                propertyValue = null;
+            }
         }
     }
 }

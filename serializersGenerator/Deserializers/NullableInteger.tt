@@ -1,0 +1,7 @@
+﻿var <#=propertyName#>NodeValue = node.getElementsByTagName("<#=propertyName#>")[0].textContent;
+if (<#=propertyName#>NodeValue){
+	result.<#=propertyName#> = parseInt(<#=propertyName#>NodeValue);
+}
+else {
+	result.<#=propertyName#> = null;
+}

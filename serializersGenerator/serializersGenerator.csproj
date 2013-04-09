@@ -36,6 +36,12 @@
     <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Asserts\NullableIntegerPartial.cs" />
+    <Compile Include="Asserts\NullableInteger.cs">
+      <DependentUpon>NullableInteger.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Asserts\EnumPartial.cs" />
     <Compile Include="Asserts\Enum.cs">
       <DependentUpon>Enum.tt</DependentUpon>
@@ -67,6 +73,12 @@
     </Compile>
     <Compile Include="Asserts\StringPartial.cs" />
     <Compile Include="AssertPropertyGenerator.cs" />
+    <Compile Include="Deserializers\NullableIntegerPartial.cs" />
+    <Compile Include="Deserializers\NullableInteger.cs">
+      <DependentUpon>NullableInteger.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="EnumsTemplatePartial.cs" />
     <Compile Include="EnumsTemplate.cs">
       <DependentUpon>EnumsTemplate.tt</DependentUpon>
@@ -140,6 +152,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Asserts\NullableInteger.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>NullableInteger.cs</LastGenOutput>
+    </None>
     <None Include="Asserts\Enum.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>Enum.cs</LastGenOutput>
@@ -159,6 +175,10 @@
     <None Include="Asserts\String.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>String.cs</LastGenOutput>
+    </None>
+    <None Include="Deserializers\NullableInteger.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>NullableInteger.cs</LastGenOutput>
     </None>
     <None Include="EnumsTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>

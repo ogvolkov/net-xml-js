@@ -17,5 +17,7 @@ namespace serializersGenerator
         void VisitObject(string propertyName, Type propertyType);
 
         void VisitEnum(string propertyName, Type propertyType);
+
+        void VisitNullableInteger(string propertyName);
     }
 }
