@@ -25,5 +25,7 @@ namespace serializersGenerator
         void VisitDecimal(string propertyName);
 
         void VisitBoolean(string propertyName);
+        
+        void VisitGuid(string propertyName);
     }
 }

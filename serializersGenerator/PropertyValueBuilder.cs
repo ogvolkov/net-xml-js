@@ -195,5 +195,10 @@ namespace serializersGenerator
         {
             propertyValue = true;
         }
+
+        public void VisitGuid(string propertyName)
+        {
+            propertyValue = Guid.NewGuid();
+        }
     }
 }

@@ -84,5 +84,11 @@ namespace serializersGenerator
             var template = new Deserializers.Boolean(propertyName);
             _resultHandler(template.TransformText());
         }
+
+        public void VisitGuid(string propertyName)
+        {
+            var template = new Deserializers.Guid(propertyName);
+            _resultHandler(template.TransformText());
+        }
     }
 }

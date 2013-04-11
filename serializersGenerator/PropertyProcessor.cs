@@ -42,18 +42,22 @@ namespace serializersGenerator
             {
                 _visitor.VisitDecimal(propertyName);
             }
-            else if (propertyType == typeof (bool))
+            else if (propertyType == typeof(bool))
             {
                 _visitor.VisitBoolean(propertyName);
+            }
+            else if (propertyType == typeof (Guid))
+            {
+                _visitor.VisitGuid(propertyName);
             }
             else if (propertyType.IsEnum)
             {
                 _visitor.VisitEnum(propertyName, propertyType);
-            }
+            }            
             else if (_types.Contains(propertyType))
             {
                 _visitor.VisitReference(propertyName, propertyType);
-            }
+            }                
             else
             {
                 var collectionType = TypesInfo.TryGetCollectionType(propertyType);

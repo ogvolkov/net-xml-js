@@ -129,5 +129,11 @@ namespace serializersGenerator
             var template = new Asserts.Boolean(_objectName, propertyName, _value);
             _resultHandler(template.TransformText());
         }
+
+        public void VisitGuid(string propertyName)
+        {
+            var template = new Asserts.Guid(_objectName, propertyName, _value);
+            _resultHandler(template.TransformText());
+        }
     }
 }
