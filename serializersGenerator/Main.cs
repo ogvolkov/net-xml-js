@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Linq;
@@ -11,16 +12,24 @@ namespace serializersGenerator
 		{
 			if (args.Length > 0)
 			{
-				string assemblyPath = args [0];
-				var assembly = Assembly.LoadFrom(assemblyPath);
+                var typesInfo = new TypesInfo();
+			    var allTypes = new List<Type>();
+                    
+			    foreach (var assemblyPath in args)
+			    {
+                    var assembly = Assembly.LoadFrom(assemblyPath);                 
+                    allTypes.AddRange(assembly.GetTypes());
+			    }
 
 				using (var unitTestsWriter = new StreamWriter("tests.js"))
 				using (var serializersWriter = new StreamWriter("serializers.js"))                
-				{										
-				    var typesInfo = new TypesInfo();
-                    var allTypes = assembly.GetTypes();
-                    
-                    var usableTypes = allTypes.Where(t => !t.IsInterface && !t.IsAbstract && !t.IsEnum);
+				{														    
+                    var usableTypes = allTypes.Where(t => t.IsPublic
+                        && !t.IsInterface
+                        && !t.IsAbstract
+                        && !t.IsEnum
+                        && !t.IsGenericType
+                        && t.GetConstructor(Type.EmptyTypes) != null).ToList();
 
                     foreach (var type in usableTypes)
 					{
@@ -49,7 +58,7 @@ namespace serializersGenerator
 			{
 				Console.WriteLine("Code generator for Javascript serializers from .NET contracts assembly");
 				var exeFileName = System.Reflection.Assembly.GetEntryAssembly().Location;
-				Console.WriteLine("Usage: {0} <assembly file name>", Path.GetFileNameWithoutExtension(exeFileName));
+				Console.WriteLine("Usage: {0} <assembly file name>...", Path.GetFileNameWithoutExtension(exeFileName));
 			}
 		}
 	}

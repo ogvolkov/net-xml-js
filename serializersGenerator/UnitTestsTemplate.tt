@@ -14,19 +14,37 @@
 	{		
 		var samples = _sampleDataBuilder.CreateAllSampleInstances(type).ToList(); 
 		
+		XmlSerializer serializer = null;
+		try
+		{
+			serializer = new XmlSerializer(type);
+		}
+		catch(Exception exception)
+		{
+			Console.WriteLine("Could not create serializer for type {0}\n{1}", type, exception);
+			continue;
+		}
+		
 		for (int i=0; i < samples.Count; i++)
         {
-	#>
-	test("Deserializing <#=type.Name#>, sample <#=i#>", function() {
-		var xml = "<#
 			var instance = samples[i];  
 
-			var serializer = new XmlSerializer(type);
 			var stringWriter = new StringWriter();
-            var escapingWriter = new EscapingTextWriter(stringWriter);
-            XmlWriter xmlWriter = XmlWriter.Create(escapingWriter, new XmlWriterSettings { OmitXmlDeclaration = true });			
-            serializer.Serialize(xmlWriter, instance);
-			
+			var escapingWriter = new EscapingTextWriter(stringWriter);
+
+			try			
+			{											
+				XmlWriter xmlWriter = XmlWriter.Create(escapingWriter, new XmlWriterSettings { OmitXmlDeclaration = true });											
+				serializer.Serialize(xmlWriter, instance);
+			}
+			catch(Exception exception)
+			{
+				Console.WriteLine("Could not serialize type {0}\n{1}", type, exception);
+			}
+		
+	#>
+	test("Deserializing <#=type.Name#>, sample <#=i#>", function() {
+		var xml = "<#			
 			Write(stringWriter.ToString());
 		#>";
 

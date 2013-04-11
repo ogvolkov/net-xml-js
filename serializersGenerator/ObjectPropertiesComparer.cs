@@ -24,6 +24,7 @@ namespace serializersGenerator
             foreach (var property in type.GetProperties())
             {
                 if (!property.CanWrite) continue;
+                if (property.GetIndexParameters().Length > 0) continue;
 
                 if (instance != null)
                 {
