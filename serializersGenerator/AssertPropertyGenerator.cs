@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -117,6 +116,12 @@ namespace serializersGenerator
 
         public void VisitUnsupported(string propertyName, Type propertyType)
         {
+        }
+
+        public void VisitDecimal(string propertyName)
+        {
+            var template = new Asserts.Decimal(_objectName, propertyName, _value);
+            _resultHandler(template.TransformText());
         }
     }
 }

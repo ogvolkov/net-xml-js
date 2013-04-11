@@ -72,5 +72,11 @@ namespace serializersGenerator
         {
             Console.WriteLine(string.Format("Unsupported type {0}", propertyType));                    
         }
+
+        public void VisitDecimal(string propertyName)
+        {
+            var template = new Deserializers.Decimal(propertyName);
+            _resultHandler(template.TransformText());
+        }
     }
 }

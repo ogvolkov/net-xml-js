@@ -21,5 +21,7 @@ namespace serializersGenerator
         void VisitNullableInteger(string propertyName);
 
         void VisitUnsupported(string propertyName, Type propertyType);
+
+        void VisitDecimal(string propertyName);
     }
 }

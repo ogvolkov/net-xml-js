@@ -185,5 +185,10 @@ namespace serializersGenerator
         {
             propertyValue = null;
         }
+
+        public void VisitDecimal(string propertyName)
+        {
+            propertyValue = 12.45m;
+        }
     }
 }

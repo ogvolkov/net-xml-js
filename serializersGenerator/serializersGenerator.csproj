@@ -36,6 +36,12 @@
     <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Asserts\DecimalPartial.cs" />
+    <Compile Include="Asserts\Decimal.cs">
+      <DependentUpon>Decimal.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Asserts\NullableIntegerPartial.cs" />
     <Compile Include="Asserts\NullableInteger.cs">
       <DependentUpon>NullableInteger.tt</DependentUpon>
@@ -73,6 +79,12 @@
     </Compile>
     <Compile Include="Asserts\StringPartial.cs" />
     <Compile Include="AssertPropertyGenerator.cs" />
+    <Compile Include="Deserializers\DecimalPartial.cs" />
+    <Compile Include="Deserializers\Decimal.cs">
+      <DependentUpon>Decimal.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Deserializers\NullableIntegerPartial.cs" />
     <Compile Include="Deserializers\NullableInteger.cs">
       <DependentUpon>NullableInteger.tt</DependentUpon>
@@ -152,6 +164,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Asserts\Decimal.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>Decimal.cs</LastGenOutput>
+    </None>
     <None Include="Asserts\NullableInteger.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>NullableInteger.cs</LastGenOutput>
@@ -175,6 +191,10 @@
     <None Include="Asserts\String.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>String.cs</LastGenOutput>
+    </None>
+    <None Include="Deserializers\Decimal.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>Decimal.cs</LastGenOutput>
     </None>
     <None Include="Deserializers\NullableInteger.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>

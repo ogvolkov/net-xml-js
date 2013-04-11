@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 
 namespace serializersGenerator
 {
@@ -38,6 +37,10 @@ namespace serializersGenerator
             else if (propertyType == typeof(string))
             {
                 _visitor.VisitString(propertyName);
+            }
+            else if (propertyType == typeof (decimal))
+            {
+                _visitor.VisitDecimal(propertyName);
             }
             else if (propertyType.IsEnum)
             {
