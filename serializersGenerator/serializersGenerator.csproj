@@ -36,6 +36,12 @@
     <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Asserts\Boolean.cs">
+      <DependentUpon>Boolean.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Asserts\BooleanPartial.cs" />
     <Compile Include="Asserts\DecimalPartial.cs" />
     <Compile Include="Asserts\Decimal.cs">
       <DependentUpon>Decimal.tt</DependentUpon>
@@ -79,6 +85,12 @@
     </Compile>
     <Compile Include="Asserts\StringPartial.cs" />
     <Compile Include="AssertPropertyGenerator.cs" />
+    <Compile Include="Deserializers\Boolean.cs">
+      <DependentUpon>Boolean.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Deserializers\BooleanPartial.cs" />
     <Compile Include="Deserializers\DecimalPartial.cs" />
     <Compile Include="Deserializers\Decimal.cs">
       <DependentUpon>Decimal.tt</DependentUpon>
@@ -164,6 +176,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Asserts\Boolean.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>Boolean.cs</LastGenOutput>
+    </None>
     <None Include="Asserts\Decimal.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>Decimal.cs</LastGenOutput>
@@ -191,6 +207,10 @@
     <None Include="Asserts\String.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>String.cs</LastGenOutput>
+    </None>
+    <None Include="Deserializers\Boolean.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>Boolean.cs</LastGenOutput>
     </None>
     <None Include="Deserializers\Decimal.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>

@@ -78,5 +78,11 @@ namespace serializersGenerator
             var template = new Deserializers.Decimal(propertyName);
             _resultHandler(template.TransformText());
         }
+
+        public void VisitBoolean(string propertyName)
+        {
+            var template = new Deserializers.Boolean(propertyName);
+            _resultHandler(template.TransformText());
+        }
     }
 }

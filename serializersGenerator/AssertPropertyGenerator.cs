@@ -123,5 +123,11 @@ namespace serializersGenerator
             var template = new Asserts.Decimal(_objectName, propertyName, _value);
             _resultHandler(template.TransformText());
         }
+
+        public void VisitBoolean(string propertyName)
+        {
+            var template = new Asserts.Boolean(_objectName, propertyName, _value);
+            _resultHandler(template.TransformText());
+        }
     }
 }

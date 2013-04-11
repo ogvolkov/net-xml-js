@@ -190,5 +190,10 @@ namespace serializersGenerator
         {
             propertyValue = 12.45m;
         }
+
+        public void VisitBoolean(string propertyName)
+        {
+            propertyValue = true;
+        }
     }
 }

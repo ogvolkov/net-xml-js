@@ -23,5 +23,7 @@ namespace serializersGenerator
         void VisitUnsupported(string propertyName, Type propertyType);
 
         void VisitDecimal(string propertyName);
+
+        void VisitBoolean(string propertyName);
     }
 }

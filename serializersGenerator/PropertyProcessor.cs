@@ -38,9 +38,13 @@ namespace serializersGenerator
             {
                 _visitor.VisitString(propertyName);
             }
-            else if (propertyType == typeof (decimal))
+            else if (propertyType == typeof(decimal))
             {
                 _visitor.VisitDecimal(propertyName);
+            }
+            else if (propertyType == typeof (bool))
+            {
+                _visitor.VisitBoolean(propertyName);
             }
             else if (propertyType.IsEnum)
             {
